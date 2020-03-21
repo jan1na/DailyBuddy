@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'names.dart';
 
 class FromTo extends StatelessWidget {
   FromTo({Key key, this.title, this.screenChanged})
@@ -58,7 +59,7 @@ class FromTo extends StatelessWidget {
             ),
             RaisedButton(
               onPressed: () {
-                
+                screenChanged(new Names(title: 'Namen', screenChanged: screenChanged));
               },
               child: Text(
                 'Weiter',
