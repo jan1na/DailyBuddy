@@ -1,43 +1,49 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Advisor(title: 'Quarantänebarater'),
-    );
-  }
-}
+void main() => runApp(Advisor());
 
 class Advisor extends StatefulWidget {
-  Advisor({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   AdvisorState createState() => AdvisorState();
 }
 
 class AdvisorState extends State<Advisor> {
-  int _counter = 0;
+  Widget screen;
 
-  void _incrementCounter() {
+  AdvisorState() {
+    screen = new Start(title: 'Quarantäneberater', screenChanged: change);
+  }
+
+  void change(Widget screen) {
     setState(() {
-      _counter++;
+      this.screen = screen;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Quarantänebarater',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: screen,
+    );
+  }
+}
+
+class Start extends StatelessWidget {
+  Start({Key key, this.title, this.screenChanged})
+      : super(key: key);
+
+  final String title;
+  final ValueChanged<Widget> screenChanged;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
       ),
       body: Center(
         child: Column(
@@ -49,14 +55,46 @@ class AdvisorState extends State<Advisor> {
             ),
             Text(
               'Ein paar Fragen, dann sind wir bereit.'
-            )
+            ),
+            RaisedButton(
+              onPressed: () {
+                screenChanged(new FromTo(title: 'Von Bis', screenChanged: screenChanged));
+              },
+              child: Text(
+                'Weiter',
+                style: TextStyle(fontSize: 20)
+              ),
+            ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+    );
+  }
+}
+
+class FromTo extends StatelessWidget {
+  FromTo({Key key, this.title, this.screenChanged})
+      : super(key: key);
+
+  final String title;
+  final ValueChanged<Widget> screenChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Von wann bis wann',
+              style: Theme.of(context).textTheme.display1,
+            ),
+          ],
+        ),
       ),
     );
   }
