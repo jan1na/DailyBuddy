@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'names.dart';
+import 'user.dart';
 
 class FromTo extends StatelessWidget {
   FromTo({Key key, this.title, this.screenChanged})
@@ -7,9 +8,6 @@ class FromTo extends StatelessWidget {
 
   final String title;
   final ValueChanged<Widget> screenChanged;
-
-  DateTime from;
-  DateTime to;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +31,7 @@ class FromTo extends StatelessWidget {
                       firstDate: DateTime(2015, 8),
                       lastDate: DateTime(2101));
                   if (picked != null) {
-                    from = picked;
+                    User.the().from = picked;
                   }
               },
               child: Text(
@@ -49,7 +47,7 @@ class FromTo extends StatelessWidget {
                       firstDate: DateTime(2015, 8),
                       lastDate: DateTime(2101));
                   if (picked != null) {
-                    to = picked;
+                    User.the().to = picked;
                   }
               },
               child: Text(

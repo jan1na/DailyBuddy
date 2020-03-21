@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'todo.dart';
+import 'user.dart';
 
 class Names extends StatefulWidget {
   Names({Key key, this.title, this.screenChanged})
@@ -13,14 +14,10 @@ class Names extends StatefulWidget {
 }
 
 class NamesState extends State<Names> {
-  List names;
-
-  NamesState() {
-    names = [];
-  }
+  NamesState();
 
   void add() async {
-    String name = null;
+    String name;
 
     await showDialog<String>(
       context: context,
@@ -61,7 +58,7 @@ class NamesState extends State<Names> {
 
     if (name != null) {
       setState(() {
-        names.add(name);
+        User.the().names.add(name);
       });
     }
   }
@@ -69,7 +66,7 @@ class NamesState extends State<Names> {
   @override
   Widget build(BuildContext context) {
     List containers = <Widget>[];
-    for (String name in names) {
+    for (String name in User.the().names) {
       containers.add(new Container(height: 50, color: Colors.amber[600], child: new Center(child: Text(name))));
     }
 

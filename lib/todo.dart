@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'user.dart';
 
 class Todo extends StatefulWidget {
   Todo({Key key, this.title, this.screenChanged})
@@ -22,11 +23,7 @@ class Entry {
 }
 
 class TodoState extends State<Todo> {
-  List todos;
-
-  TodoState() {
-    todos = <Entry>[];
-  }
+  TodoState();
 
   void add() async {
     String todo;
@@ -70,7 +67,7 @@ class TodoState extends State<Todo> {
 
     if (todo != null) {
       setState(() {
-        todos.add(new Entry(todo, false));
+        User.the().todos.add(new Entry(todo, false));
       });
     }
   }
@@ -79,12 +76,12 @@ class TodoState extends State<Todo> {
   Widget build(BuildContext context) {
     List containers = <Widget>[];
     int index = 0;
-    for (Entry todo in todos) {
+    for (Entry todo in User.the().todos) {
       int currentIndex = index;
       containers.add(new Container(height: 50, color: Colors.amber[600], child: new Row(children: <Widget>[
-        Switch(value: todos[index].done, onChanged: (bool value) {
+        Switch(value: User.the().todos[index].done, onChanged: (bool value) {
           setState(() {
-            todos[currentIndex].done = !todos[currentIndex].done;
+            User.the().todos[currentIndex].done = !User.the().todos[currentIndex].done;
           });
         },),
         Text(todo.title),
