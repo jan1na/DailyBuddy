@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
-import 'todo.dart';
 
-class Names extends StatefulWidget {
-  Names({Key key, this.title, this.screenChanged})
+class Todo extends StatefulWidget {
+  Todo({Key key, this.title, this.screenChanged})
       : super(key: key);
 
   final String title;
   final ValueChanged<Widget> screenChanged;
 
   @override
-  NamesState createState() => NamesState();
+  TodoState createState() => TodoState();
 }
 
-class NamesState extends State<Names> {
-  List names;
+class Entry {
+  Entry(String title, bool done) {
+    this.title = title;
+    this.done = done;
+  }
 
-  NamesState() {
-    names = [];
+  String title;
+  bool done;
+}
+
+class TodoState extends State<Todo> {
+  List todos;
+
+  TodoState() {
+    todos = <Entry>[];
   }
 
   void add() async {
-    String name = null;
+    String todo;
 
     await showDialog<String>(
       context: context,
@@ -29,7 +38,7 @@ class NamesState extends State<Names> {
         final field = new TextField(
           autofocus: true,
           decoration: new InputDecoration(
-              labelText: 'Voller Name', hintText: 'z.B. Herman Toothrot'),
+              labelText: 'Todo', hintText: 'z.B. Staubsaugen'),
           controller: controller,
         );
         
@@ -51,7 +60,7 @@ class NamesState extends State<Names> {
             new FlatButton(
                 child: const Text('OK'),
                 onPressed: () {
-                  name = controller.text;
+                  todo = controller.text;
                   Navigator.pop(context);
                 })
           ],
@@ -59,9 +68,9 @@ class NamesState extends State<Names> {
       },
     );
 
-    if (name != null) {
+    if (todo != null) {
       setState(() {
-        names.add(name);
+        todos.add(new Entry(todo, false));
       });
     }
   }
@@ -69,8 +78,18 @@ class NamesState extends State<Names> {
   @override
   Widget build(BuildContext context) {
     List containers = <Widget>[];
-    for (String name in names) {
-      containers.add(new Container(height: 50, color: Colors.amber[600], child: new Center(child: Text(name))));
+    int index = 0;
+    for (Entry todo in todos) {
+      int currentIndex = index;
+      containers.add(new Container(height: 50, color: Colors.amber[600], child: new Row(children: <Widget>[
+        Switch(value: todos[index].done, onChanged: (bool value) {
+          setState(() {
+            todos[currentIndex].done = !todos[currentIndex].done;
+          });
+        },),
+        Text(todo.title),
+      ])));
+      ++index;
     }
 
     return Scaffold(
@@ -89,7 +108,7 @@ class NamesState extends State<Names> {
             ),
             RaisedButton(
               onPressed: () {
-                widget.screenChanged(new Todo(title: 'Zu Erledigen', screenChanged: widget.screenChanged));
+                // TODO
               },
               child: Text(
                 'Weiter',
@@ -101,7 +120,7 @@ class NamesState extends State<Names> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: add,
-        tooltip: 'Neuer Name',
+        tooltip: 'Neues Todo',
         child: Icon(Icons.add),
       ),
     );
