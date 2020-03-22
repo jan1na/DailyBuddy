@@ -13,10 +13,11 @@ class Category {
 class CreateTodo extends StatefulWidget {
   CreateTodo({Key key, this.screenChanged})
       : categories = [
-        new Category('Haushalt', ['Fenster putzen', 'Wäsche waschen', 'Zimmer aufräumen']),
-        new Category('Wellness', ['Kopf kratzen', 'Nase popeln', 'Schlafen']),
-        new Category('Kommunikation', ['Mama anrufen', 'Kinder anschreien', 'Selbstgespräch führen']),
-        new Category('Basteln', ['Ikea', 'Lego', 'Duplo']),
+        new Category('Kommunikation', ['Skype-Dinner', 'Videobotschaft', 'Jemanden anrufen', 'Einen Brief schreiben']),
+        new Category('Haushalt', ['Badezimmerschrank ausmisten', 'Bettwäsche wechseln', 'Fenster putzen', 'Schreibtisch aufräumen', 'Tupperschrank aufräumen', 'Wäsche waschen', 'Zimmer aufräumen']),
+        new Category('Wellness', ['Entspannungsbad', 'Gesichtsmaske selber machen', 'Mediatation', 'vegane Ernährung ausprobieren', 'Yoga']),
+        new Category('Stillbeschäftigung', ['Fotobuch für die Liebsten gestalten', 'Fotos ins Album kleben', 'Lego spielen', 'Tagebuch schreiben', 'Mandalas malen']),
+        new Category('IT', ['Browser surfen lernen', 'Excel lernen', 'Ordner/Laufwerke aufräumen', 'Programmieren']),
       ],
       super(key: key);
 
