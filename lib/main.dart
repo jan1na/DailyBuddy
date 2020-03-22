@@ -24,7 +24,7 @@ class AdvisorState extends State<Advisor> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Quarantänebarater',
+      title: 'Quarantäneberater',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

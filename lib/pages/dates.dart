@@ -39,7 +39,7 @@ class Dates extends StatelessWidget {
               onPressed: () async {
                 final DateTime picked = await showDatePicker(
                       context: context,
-                      initialDate: DateTime.now(),
+                      initialDate: DateTime.now().add(Duration(days: 14)),
                       firstDate: DateTime(2015, 8),
                       lastDate: DateTime(2101));
                   if (picked != null) {
