@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'createtodo.dart';
+import 'help.dart';
 import '../user.dart';
 
 class Hub extends StatefulWidget {
@@ -13,12 +14,6 @@ class Hub extends StatefulWidget {
 }
 
 class HubState extends State<Hub> {
-  HubState();
-
-  void add() {
-    widget.screenChanged(new CreateTodo(screenChanged: widget.screenChanged));
-  }
-
   @override
   Widget build(BuildContext context) {
     var now = DateTime.now();
@@ -73,7 +68,7 @@ class HubState extends State<Hub> {
             ),
             RaisedButton(
               onPressed: () {
-                //screenChanged(new FromTo(title: 'Von Bis', screenChanged: screenChanged));
+                widget.screenChanged(new Help(screenChanged: widget.screenChanged));
               },
               child: Text(
                 'Hilfe',
@@ -84,7 +79,9 @@ class HubState extends State<Hub> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: add,
+        onPressed: () {
+          widget.screenChanged(new CreateTodo(screenChanged: widget.screenChanged));
+        },
         tooltip: 'Neues Todo',
         child: Icon(Icons.add),
       ),
