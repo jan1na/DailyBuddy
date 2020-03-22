@@ -20,11 +20,15 @@ class User {
 
   DateTime from;
   DateTime to;
+  DateTime now;
   List names;
   List todos;
 
   User() {
     names = [];
     todos = [];
+    from = DateTime.now();
+    to = from.add(new Duration(days: 14));
+    now = DateTime.now();
   }
 }

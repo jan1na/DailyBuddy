@@ -17,7 +17,7 @@ class Hub extends StatefulWidget {
 class HubState extends State<Hub> {
   @override
   Widget build(BuildContext context) {
-    var now = DateTime.now();
+    final now = User.the().now;
     var weekday = 'Unbekannt';
     switch (now.weekday) {
       case 1: weekday = 'Montag'; break;
@@ -56,18 +56,29 @@ class HubState extends State<Hub> {
       ++index;
     }
 
+    final from = User.the().from;
+    final to = User.the().to;
+    final overall = to.difference(from);
+    
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              '$weekday, der $day.$month.$year',
-              style: Theme.of(context).textTheme.display1,
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  User.the().now = User.the().now.add(new Duration(days: 1));
+                });
+              },
+              child: Text(
+                '$weekday, der $day.$month.$year',
+                style: Theme.of(context).textTheme.display1,
+              ),
             ),
             SizedBox(
               height: 50,
-              child:LinearProgressIndicator(value: 0.5,),
+              child:LinearProgressIndicator(value: now.difference(from).inDays / overall.inDays,),
             ),
             new Container(
               height: MediaQuery.of(context).size.height * 0.6,
