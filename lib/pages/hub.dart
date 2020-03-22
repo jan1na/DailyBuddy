@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'createtodo.dart';
 import '../user.dart';
 
-class Hub extends StatelessWidget {
+class Hub extends StatefulWidget {
   Hub({Key key, this.screenChanged})
       : super(key: key);
 
   final ValueChanged<Widget> screenChanged;
 
-  void add() {}
+  @override
+  HubState createState() => HubState();
+}
+
+class HubState extends State<Hub> {
+  HubState();
+
+  void add() {
+    widget.screenChanged(new CreateTodo(screenChanged: widget.screenChanged));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +42,9 @@ class Hub extends StatelessWidget {
       int currentIndex = index;
       containers.add(new Container(height: 50, color: Colors.amber[600], child: new Row(children: <Widget>[
         Switch(value: User.the().todos[index].done, onChanged: (bool value) {
-          //setState(() {
+          setState(() {
             User.the().todos[currentIndex].done = !User.the().todos[currentIndex].done;
-          //});
+          });
         },),
         Text(todo.title),
       ])));
