@@ -21,6 +21,9 @@ class Start extends StatelessWidget {
             Text(
               'Ein paar Fragen, dann sind wir bereit.'
             ),
+            Image.asset(
+              'assets/Logo_Projekt_02.png'
+            ),
             RaisedButton(
               onPressed: () {
                 screenChanged(new Dates(screenChanged: screenChanged));
