@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/hub.dart';
+import 'pages/start.dart';
 
 void main() => runApp(Advisor());
 
@@ -12,7 +12,7 @@ class AdvisorState extends State<Advisor> {
   Widget screen;
 
   AdvisorState() {
-    screen = new Hub(screenChanged: change);
+    screen = new Start(screenChanged: change);
   }
 
   void change(Widget screen) {

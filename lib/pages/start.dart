@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'fromto.dart';
+import 'dates.dart';
 
 class Start extends StatelessWidget {
-  Start({Key key, this.title, this.screenChanged})
+  Start({Key key, this.screenChanged})
       : super(key: key);
 
-  final String title;
   final ValueChanged<Widget> screenChanged;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +23,7 @@ class Start extends StatelessWidget {
             ),
             RaisedButton(
               onPressed: () {
-                screenChanged(new FromTo(title: 'Von Bis', screenChanged: screenChanged));
+                screenChanged(new Dates(screenChanged: screenChanged));
               },
               child: Text(
                 'Weiter',

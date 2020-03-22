@@ -26,7 +26,7 @@ class HubState extends State<Hub> {
       case 5: weekday = 'Freitag'; break;
       case 6: weekday = 'Samstag'; break;
       case 7: weekday = 'Sonntag'; break;
-    };
+    }
     var day = now.day;
     var month = now.month;
     var year = now.year;
