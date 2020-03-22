@@ -33,7 +33,7 @@ class CreateCustomTodoState extends State<CreateCustomTodo> {
             Row(children: <Widget>[
               RaisedButton(
                 onPressed: () {
-                  var entry = new Entry(controller.text, false);
+                  var entry = new Entry(controller.text, false, DateTime.now());
                   User.the().todos.add(entry);
                   widget.screenChanged(new Hub(screenChanged: widget.screenChanged));
                 },

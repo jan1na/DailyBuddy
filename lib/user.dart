@@ -6,6 +6,7 @@ class Entry {
 
   String title;
   bool done;
+  DateTime due;
 }
 
 class User {
@@ -23,17 +24,17 @@ class User {
   DateTime to;
   DateTime now;
   List names;
-  List todos;
+  Map todos;
 
   User() {
     names = [];
-    todos = [];
+    todos = new Map();
     from = DateTime.now();
     to = from.add(new Duration(days: 14));
     now = DateTime.now();
     String t;
     for (t in defaultDailyTasks) {
-      todos.add(new Entry(t, false));
+      todos.addEntries(new MapEntry(now, new Entry(t, false)));
     }
   }
 }

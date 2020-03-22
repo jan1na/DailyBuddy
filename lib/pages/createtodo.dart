@@ -58,7 +58,7 @@ class CreateTodoState extends State<CreateTodo> {
         for (var sub in category.sub) {
           categoryButtons.add(new RaisedButton(
             onPressed: () {
-              var entry = new Entry(sub, false);
+              var entry = new Entry(sub, false, DateTime.now());
               User.the().todos.add(entry);
               widget.screenChanged(new Hub(screenChanged: widget.screenChanged));
             },
