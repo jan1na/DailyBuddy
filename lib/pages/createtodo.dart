@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'hub.dart';
+import 'createcustomtodo.dart';
 import '../user.dart';
 
 class Category {
@@ -31,18 +32,10 @@ class CreateTodoState extends State<CreateTodo> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController();
-    final field = new TextField(
-      autofocus: true,
-      decoration: new InputDecoration(
-          labelText: 'Todo', hintText: 'z.B. Staubsaugen'),
-      controller: controller,
-    );
-
     var categoryButtons = new List<RaisedButton>();
     categoryButtons.add(new RaisedButton(
       onPressed: () {
-        widget.screenChanged(new Hub(screenChanged: widget.screenChanged));
+        widget.screenChanged(new CreateCustomTodo(screenChanged: widget.screenChanged));
       },
       color: Colors.orange,
       child: Text('Selbst definieren', style: TextStyle(fontSize: 20)),));
@@ -84,31 +77,7 @@ class CreateTodoState extends State<CreateTodo> {
       body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: 
-          categoryButtons
-          /*field,
-          Row(children: <Widget>[
-            RaisedButton(
-              onPressed: () {
-                var entry = new Entry(controller.text, false);
-                User.the().todos.add(entry);
-                widget.screenChanged(new Hub(screenChanged: widget.screenChanged));
-              },
-              child: Text(
-                'OK',
-                style: TextStyle(fontSize: 20)
-              ),
-            ),
-            RaisedButton(
-              onPressed: () {
-                widget.screenChanged(new Hub(screenChanged: widget.screenChanged));
-              },
-              child: Text(
-                'Abbrechen',
-                style: TextStyle(fontSize: 20)
-              ),
-            ),
-          ],)*/
+        children: categoryButtons,
       ),
       ),
     );
