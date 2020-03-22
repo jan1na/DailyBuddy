@@ -34,7 +34,10 @@ class HubState extends State<Hub> {
 
     List containers = <Widget>[];
     int index = 0;
-    for (Entry todo in User.the().todos[now]) {
+    for (Entry todo in User.the().todos) {
+      if (todo.due.day != now.day || todo.due.month != now.month || todo.due.year != now.year) {
+        continue;
+      }
       int currentIndex = index;
       containers.add(
         new GestureDetector(
@@ -45,8 +48,8 @@ class HubState extends State<Hub> {
             height: 50,
             color: Colors.amber[600],
             child: new Row(children: <Widget>[
-              Switch(value: User.the().todos[now][index].done, onChanged: (bool value) {
-                widget.screenChanged(new Todo(screenChanged: widget.screenChanged, entry: User.the().todos[now][currentIndex]));
+              Switch(value: todo.done, onChanged: (bool value) {
+                widget.screenChanged(new Todo(screenChanged: widget.screenChanged, entry: todo));
               },),
               Text(todo.title),
             ]

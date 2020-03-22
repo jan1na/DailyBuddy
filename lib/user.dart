@@ -24,17 +24,19 @@ class User {
   DateTime to;
   DateTime now;
   List names;
-  Map todos;
+  List<Entry> todos;
 
   User() {
     names = [];
-    todos = new Map();
+    todos = new List<Entry>();
     from = DateTime.now();
     to = from.add(new Duration(days: 14));
     now = DateTime.now();
     String t;
     for (t in defaultDailyTasks) {
-      todos.addEntries([new MapEntry(now, new Entry(t, false))]);
+      var entry = new Entry(t, false);
+      entry.due = now;
+      todos.add(entry);
     }
   }
 }
