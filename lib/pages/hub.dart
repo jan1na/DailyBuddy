@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'todo.dart';
 import 'createtodo.dart';
 import 'help.dart';
 import '../user.dart';
@@ -35,14 +36,23 @@ class HubState extends State<Hub> {
     int index = 0;
     for (Entry todo in User.the().todos) {
       int currentIndex = index;
-      containers.add(new Container(height: 50, color: Colors.amber[600], child: new Row(children: <Widget>[
-        Switch(value: User.the().todos[index].done, onChanged: (bool value) {
-          setState(() {
-            User.the().todos[currentIndex].done = !User.the().todos[currentIndex].done;
-          });
-        },),
-        Text(todo.title),
-      ])));
+      containers.add(
+        new GestureDetector(
+          onTap: () {
+            widget.screenChanged(new Todo(screenChanged: widget.screenChanged, entry: User.the().todos[currentIndex]));
+          },
+          child: new Container(
+            height: 50,
+            color: Colors.amber[600],
+            child: new Row(children: <Widget>[
+              Switch(value: User.the().todos[index].done, onChanged: (bool value) {
+                widget.screenChanged(new Todo(screenChanged: widget.screenChanged, entry: User.the().todos[currentIndex]));
+              },),
+              Text(todo.title),
+            ]
+          ))
+        )
+      );
       ++index;
     }
 
