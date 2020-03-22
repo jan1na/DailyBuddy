@@ -12,16 +12,6 @@ class Todo extends StatefulWidget {
   TodoState createState() => TodoState();
 }
 
-class Entry {
-  Entry(String title, bool done) {
-    this.title = title;
-    this.done = done;
-  }
-
-  String title;
-  bool done;
-}
-
 class TodoState extends State<Todo> {
   TodoState();
 

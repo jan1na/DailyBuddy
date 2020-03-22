@@ -1,3 +1,13 @@
+class Entry {
+  Entry(String title, bool done) {
+    this.title = title;
+    this.done = done;
+  }
+
+  String title;
+  bool done;
+}
+
 class User {
   static User theOne;
 
