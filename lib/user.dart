@@ -10,6 +10,7 @@ class Entry {
 
 class User {
   static User theOne;
+  static List defaultDailyTasks = ['Smile', 'Frühstück', 'Skype-Lunch', 'Skype-Dinner', 'Log-Eintrag'];
 
   static User the() {
     if (theOne == null) {
@@ -30,10 +31,9 @@ class User {
     from = DateTime.now();
     to = from.add(new Duration(days: 14));
     now = DateTime.now();
-    todos.add(new Entry('Smile', false));
-    todos.add(new Entry('Frühstück', false));
-    todos.add(new Entry('Skype-Lunch', false));
-    todos.add(new Entry('Skype-Dinner', false));
-    todos.add(new Entry('Log-Eintrag', false));
+    String t;
+    for (t in defaultDailyTasks) {
+      todos.add(new Entry(t, false));
+    }
   }
 }
