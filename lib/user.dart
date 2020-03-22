@@ -34,7 +34,7 @@ class User {
     now = DateTime.now();
     String t;
     for (t in defaultDailyTasks) {
-      todos.addEntries(new MapEntry(now, new Entry(t, false)));
+      todos.addEntries([new MapEntry(now, new Entry(t, false))]);
     }
   }
 }
