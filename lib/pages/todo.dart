@@ -3,8 +3,7 @@ import 'hub.dart';
 import '../user.dart';
 
 class Todo extends StatelessWidget {
-  Todo({Key key, this.screenChanged, this.entry})
-      : super(key: key);
+  Todo({Key key, this.screenChanged, this.entry}) : super(key: key);
 
   final ValueChanged<Widget> screenChanged;
   final Entry entry;
@@ -26,20 +25,14 @@ class Todo extends StatelessWidget {
                   onPressed: () {
                     screenChanged(new Hub(screenChanged: screenChanged));
                   },
-                  child: Text(
-                    'Zurück',
-                    style: TextStyle(fontSize: 20)
-                  ),
+                  child: Text('Zurück', style: TextStyle(fontSize: 20)),
                 ),
                 RaisedButton(
                   onPressed: () {
                     entry.done = true;
                     screenChanged(new Hub(screenChanged: screenChanged));
                   },
-                  child: Text(
-                    'Erledigt',
-                    style: TextStyle(fontSize: 20)
-                  ),
+                  child: Text('Erledigt', style: TextStyle(fontSize: 20)),
                 ),
               ],
             ),
