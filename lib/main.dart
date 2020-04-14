@@ -1,4 +1,6 @@
+import 'package:DailyBuddy/pages/dayplan.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'pages/start.dart';
 
 void main() => runApp(Advisor());
@@ -12,7 +14,9 @@ class AdvisorState extends State<Advisor> {
   Widget screen;
 
   AdvisorState() {
-    screen = new Start(screenChanged: change);
+    Intl.defaultLocale = 'de_DE';
+    //screen = new Start(screenChanged: change);
+    screen = DayPlanScreen();
   }
 
   void change(Widget screen) {

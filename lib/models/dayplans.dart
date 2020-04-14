@@ -18,4 +18,6 @@ class Dayplans {
   void clear() {
     list.clear();
   }
+
+  get length => list.length;
 }

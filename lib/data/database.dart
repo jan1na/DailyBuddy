@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:async';
-
 import 'package:DailyBuddy/models/dayplan.dart';
+import 'package:DailyBuddy/models/dayplans.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -47,14 +47,16 @@ class DatabaseProvider {
 	 * Dayplan Table
 	 */
 
-  getDayplans() async {
+  Future<Dayplans> getDayplans() async {
     final db = await database;
     var res = await db.query(dayplanTABLE);
     List<Dayplan> dayplans = res.isNotEmpty
+        //Dayplans dayplans = (res.isNotEmpty
         ? res.map((note) => Dayplan.fromJson(note)).toList()
         : [];
-
-    return dayplans;
+    Dayplans plans = Dayplans();
+    if (dayplans.length > 0) plans = (dayplans) as Dayplans;
+    return plans;
   }
 
   newDayplan(Dayplan dayplan) async {
