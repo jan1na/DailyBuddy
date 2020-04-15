@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:DailyBuddy/models/dayplans.dart';
+import 'package:DailyBuddy/pages/edit_dayplan.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:DailyBuddy/data/bloc/dayplan_bloc.dart';
@@ -20,19 +21,23 @@ class DayPlanScreen extends StatefulWidget {
 class _DayPlanScreenState extends State<DayPlanScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final DayplansBloc dayplansBlocs = DayplansBloc();
   String title;
+  DateTime ackDate;
+  DayplansBloc dayplansBlocs;
 
   @override
   void initState() {
     super.initState();
-    // initializeDateFormatting();
+    ackDate = DateTime.now();
+    dayplansBlocs = DayplansBloc(ackDate);
+
+    // initializeDateFormatting
     initializeDateFormatting("de_DE", null).then((_) => {});
   }
 
   @override
   Widget build(BuildContext context) {
-    var nowDay = DateFormat.yMMMMEEEEd("de_DE").format(DateTime.now());
+    var nowDay = DateFormat.yMMMMEEEEd("de_DE").format(ackDate);
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(nowDay)),
@@ -41,11 +46,22 @@ class _DayPlanScreenState extends State<DayPlanScreen> {
         child: _dayplanList(context),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          _navigateToCreate(context);
+        },
         tooltip: 'Neue Aktivität',
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  _navigateToCreate(BuildContext context) async {
+    Route route = MaterialPageRoute(builder: (_) => CreateDayplanScreen());
+    final newPlan = await Navigator.of(context).push(route);
+    if (newPlan.runtimeType == Dayplan) {
+      dayplansBlocs.getDayplans();
+      // dayplansBlocs.add(newPlan);
+    }
   }
 
   Widget _dayplanList(BuildContext context) {
@@ -84,10 +100,12 @@ class _DayPlanScreenState extends State<DayPlanScreen> {
         child: Container(
             height: 40,
             child: Row(children: [
-              Text(dayplan.date.hour.toString() +
-                  ':' +
-                  dayplan.date.minute.toString()),
-              Text(dayplan.activity)
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(DateFormat('HH:mm').format(dayplan.date),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black))),
+              Text(dayplan.activity, style: TextStyle(color: Colors.green))
             ])));
   }
 }

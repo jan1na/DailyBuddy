@@ -15,6 +15,10 @@ class Dayplans {
     return list.singleWhere((_c) => _c.id == _id);
   }
 
+  void setList(List<Dayplan> _list) {
+    list = _list;
+  }
+
   void clear() {
     list.clear();
   }

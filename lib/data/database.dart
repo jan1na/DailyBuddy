@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:DailyBuddy/models/dayplan.dart';
 import 'package:DailyBuddy/models/dayplans.dart';
+import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -47,15 +48,31 @@ class DatabaseProvider {
 	 * Dayplan Table
 	 */
 
-  Future<Dayplans> getDayplans() async {
+  Future<Dayplans> getAllDayplans() async {
     final db = await database;
     var res = await db.query(dayplanTABLE);
     List<Dayplan> dayplans = res.isNotEmpty
-        //Dayplans dayplans = (res.isNotEmpty
         ? res.map((note) => Dayplan.fromJson(note)).toList()
         : [];
     Dayplans plans = Dayplans();
-    if (dayplans.length > 0) plans = (dayplans) as Dayplans;
+    if (dayplans.length > 0) plans.setList(dayplans);
+    return plans;
+  }
+
+  Future<Dayplans> getDayplans(DateTime date) async {
+    final db = await database;
+    var selDate = DateFormat('yyyy-MM-dd').format(date);
+    var timeFrom = "$selDate 00:00:00";
+    var timeTo = "$selDate 23:59:59";
+
+    var res = await db.query(dayplanTABLE,
+        where: 'date >= "$timeFrom" AND date <= "$timeTo"',
+        orderBy: 'date ASC');
+    List<Dayplan> dayplans = res.isNotEmpty
+        ? res.map((note) => Dayplan.fromJson(note)).toList()
+        : [];
+    Dayplans plans = Dayplans();
+    if (dayplans.length > 0) plans.setList(dayplans);
     return plans;
   }
 
@@ -66,7 +83,7 @@ class DatabaseProvider {
     return res;
   }
 
-  getDayplan(int id) async {
+  getDayplan(String id) async {
     final db = await database;
     var res = await db.query(dayplanTABLE, where: 'id = ?', whereArgs: [id]);
 
@@ -81,7 +98,7 @@ class DatabaseProvider {
     return res;
   }
 
-  deleteDayplan(int id) async {
+  deleteDayplan(String id) async {
     final db = await database;
     db.delete(dayplanTABLE, where: 'id = ?', whereArgs: [id]);
   }
