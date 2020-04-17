@@ -30,18 +30,14 @@ dev_dependencies:
   pedantic: ^1.8.0
   flutter_launcher_icons: "^0.7.4"
 
-
 flutter:
   uses-material-design: true
   assets:
-   - assets/Logo_Projekt_01.png
-   - assets/Logo_Projekt_02.png
     - assets/images/
     - assets/Logo_Projekt_01.png
     - assets/Logo_Projekt_02.png
-    
 
 flutter_icons:
-  android: "app_icon" 
+  android: "app_icon"
   ios: true
   image_path: "assets/images/logo.png"
