@@ -5,8 +5,7 @@ import 'help.dart';
 import '../user.dart';
 
 class Hub extends StatefulWidget {
-  Hub({Key key, this.screenChanged})
-      : super(key: key);
+  Hub({Key key, this.screenChanged}) : super(key: key);
 
   final ValueChanged<Widget> screenChanged;
 
@@ -20,13 +19,27 @@ class HubState extends State<Hub> {
     final now = User.the().now;
     var weekday = 'Unbekannt';
     switch (now.weekday) {
-      case 1: weekday = 'Montag'; break;
-      case 2: weekday = 'Dienstag'; break;
-      case 3: weekday = 'Mittwoch'; break;
-      case 4: weekday = 'Donnerstag'; break;
-      case 5: weekday = 'Freitag'; break;
-      case 6: weekday = 'Samstag'; break;
-      case 7: weekday = 'Sonntag'; break;
+      case 1:
+        weekday = 'Montag';
+        break;
+      case 2:
+        weekday = 'Dienstag';
+        break;
+      case 3:
+        weekday = 'Mittwoch';
+        break;
+      case 4:
+        weekday = 'Donnerstag';
+        break;
+      case 5:
+        weekday = 'Freitag';
+        break;
+      case 6:
+        weekday = 'Samstag';
+        break;
+      case 7:
+        weekday = 'Sonntag';
+        break;
     }
     var day = now.day;
     var month = now.month;
@@ -35,34 +48,38 @@ class HubState extends State<Hub> {
     List containers = <Widget>[];
     int index = 0;
     for (Entry todo in User.the().todos) {
-      if (todo.due.day != now.day || todo.due.month != now.month || todo.due.year != now.year) {
+      if (todo.due.day != now.day ||
+          todo.due.month != now.month ||
+          todo.due.year != now.year) {
         continue;
       }
       int currentIndex = index;
-      containers.add(
-        new GestureDetector(
+      containers.add(new GestureDetector(
           onTap: () {
-            widget.screenChanged(new Todo(screenChanged: widget.screenChanged, entry: User.the().todos[currentIndex]));
+            widget.screenChanged(new Todo(
+                screenChanged: widget.screenChanged,
+                entry: User.the().todos[currentIndex]));
           },
           child: new Container(
-            height: 50,
-            color: Colors.amber[600],
-            child: new Row(children: <Widget>[
-              Switch(value: todo.done, onChanged: (bool value) {
-                widget.screenChanged(new Todo(screenChanged: widget.screenChanged, entry: todo));
-              },),
-              Text(todo.title),
-            ]
-          ))
-        )
-      );
+              height: 50,
+              color: Colors.amber[600],
+              child: new Row(children: <Widget>[
+                Switch(
+                  value: todo.done,
+                  onChanged: (bool value) {
+                    widget.screenChanged(new Todo(
+                        screenChanged: widget.screenChanged, entry: todo));
+                  },
+                ),
+                Text(todo.title),
+              ]))));
       ++index;
     }
 
     final from = User.the().from;
     final to = User.the().to;
     final overall = to.difference(from);
-    
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -81,7 +98,9 @@ class HubState extends State<Hub> {
             ),
             SizedBox(
               height: 50,
-              child:LinearProgressIndicator(value: now.difference(from).inDays / overall.inDays,),
+              child: LinearProgressIndicator(
+                value: now.difference(from).inDays / overall.inDays,
+              ),
             ),
             new Container(
               height: MediaQuery.of(context).size.height * 0.6,
@@ -92,19 +111,18 @@ class HubState extends State<Hub> {
             ),
             RaisedButton(
               onPressed: () {
-                widget.screenChanged(new Help(screenChanged: widget.screenChanged));
+                widget.screenChanged(
+                    new Help(screenChanged: widget.screenChanged));
               },
-              child: Text(
-                'Hilfe',
-                style: TextStyle(fontSize: 20)
-              ),
+              child: Text('Hilfe', style: TextStyle(fontSize: 20)),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          widget.screenChanged(new CreateTodo(screenChanged: widget.screenChanged));
+          widget.screenChanged(
+              new CreateTodo(screenChanged: widget.screenChanged));
         },
         tooltip: 'Neues Todo',
         child: Icon(Icons.add),

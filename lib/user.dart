@@ -11,7 +11,13 @@ class Entry {
 
 class User {
   static User theOne;
-  static List defaultDailyTasks = ['Smile', 'Frühstück', 'Skype-Lunch', 'Skype-Dinner', 'Log-Eintrag'];
+  static List defaultDailyTasks = [
+    'Smile',
+    'Frühstück',
+    'Skype-Lunch',
+    'Skype-Dinner',
+    'Log-Eintrag'
+  ];
 
   static User the() {
     if (theOne == null) {

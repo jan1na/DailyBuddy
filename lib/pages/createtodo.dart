@@ -13,13 +13,43 @@ class Category {
 class CreateTodo extends StatefulWidget {
   CreateTodo({Key key, this.screenChanged})
       : categories = [
-        new Category('Kommunikation', ['Skype-Dinner', 'Videobotschaft', 'Jemanden anrufen', 'Einen Brief schreiben']),
-        new Category('Haushalt', ['Badezimmerschrank ausmisten', 'Bettwäsche wechseln', 'Fenster putzen', 'Schreibtisch aufräumen', 'Tupperschrank aufräumen', 'Wäsche waschen', 'Zimmer aufräumen']),
-        new Category('Wellness', ['Entspannungsbad', 'Gesichtsmaske selber machen', 'Mediatation', 'vegane Ernährung ausprobieren', 'Yoga']),
-        new Category('Stillbeschäftigung', ['Fotobuch für die Liebsten gestalten', 'Fotos ins Album kleben', 'Lego spielen', 'Tagebuch schreiben', 'Mandalas malen']),
-        new Category('IT', ['Browser surfen lernen', 'Excel lernen', 'Ordner/Laufwerke aufräumen', 'Programmieren']),
-      ],
-      super(key: key);
+          new Category('Kommunikation', [
+            'Skype-Dinner',
+            'Videobotschaft',
+            'Jemanden anrufen',
+            'Einen Brief schreiben'
+          ]),
+          new Category('Haushalt', [
+            'Badezimmerschrank ausmisten',
+            'Bettwäsche wechseln',
+            'Fenster putzen',
+            'Schreibtisch aufräumen',
+            'Tupperschrank aufräumen',
+            'Wäsche waschen',
+            'Zimmer aufräumen'
+          ]),
+          new Category('Wellness', [
+            'Entspannungsbad',
+            'Gesichtsmaske selber machen',
+            'Mediatation',
+            'vegane Ernährung ausprobieren',
+            'Yoga'
+          ]),
+          new Category('Stillbeschäftigung', [
+            'Fotobuch für die Liebsten gestalten',
+            'Fotos ins Album kleben',
+            'Lego spielen',
+            'Tagebuch schreiben',
+            'Mandalas malen'
+          ]),
+          new Category('IT', [
+            'Browser surfen lernen',
+            'Excel lernen',
+            'Ordner/Laufwerke aufräumen',
+            'Programmieren'
+          ]),
+        ],
+        super(key: key);
 
   final ValueChanged<Widget> screenChanged;
   final List<Category> categories;
@@ -36,10 +66,12 @@ class CreateTodoState extends State<CreateTodo> {
     var categoryButtons = new List<RaisedButton>();
     categoryButtons.add(new RaisedButton(
       onPressed: () {
-        widget.screenChanged(new CreateCustomTodo(screenChanged: widget.screenChanged));
+        widget.screenChanged(
+            new CreateCustomTodo(screenChanged: widget.screenChanged));
       },
       color: Colors.orange,
-      child: Text('Selbst definieren', style: TextStyle(fontSize: 20)),));
+      child: Text('Selbst definieren', style: TextStyle(fontSize: 20)),
+    ));
 
     var index = 0;
     for (var category in widget.categories) {
@@ -61,7 +93,8 @@ class CreateTodoState extends State<CreateTodo> {
               var entry = new Entry(sub, false);
               entry.due = User.the().now;
               User.the().todos.add(entry);
-              widget.screenChanged(new Hub(screenChanged: widget.screenChanged));
+              widget
+                  .screenChanged(new Hub(screenChanged: widget.screenChanged));
             },
             color: Colors.yellow,
             child: Text(sub, style: TextStyle(fontSize: 20)),
@@ -77,10 +110,10 @@ class CreateTodoState extends State<CreateTodo> {
         title: Text('Neue Aufgabe'),
       ),
       body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: categoryButtons,
-      ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: categoryButtons,
+        ),
       ),
     );
   }

@@ -1,4 +1,4 @@
-package com.example.theapp
+package de.dailybuddy.daily_buddy_app
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
