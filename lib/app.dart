@@ -17,7 +17,7 @@ class DailyBuddyApp extends StatelessWidget {
             locale: Locale('de', ''),
             title: 'DailyBuddy',
             theme: isDarkMode ? darkTheme : defaultTheme,
-            home: SchedulesPage());
+            home: WelcomePage());
       },
     );
   }

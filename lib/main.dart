@@ -51,6 +51,10 @@ Future<void> main() async {
             localNotificationsPlugin: flutterLocalNotificationsPlugin,
             context: context),
       ),
+      BlocProvider<UserBloc>(
+        lazy: false,
+        create: (context) => UserBloc(),
+      ),
     ],
     child: DailyBuddyApp(),
   ));
