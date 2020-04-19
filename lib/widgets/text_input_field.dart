@@ -13,13 +13,14 @@ class TextInputField extends StatelessWidget {
   final String hint;
   final bool obsecure;
   final FormFieldValidator<String> validator;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 0, bottom: 0, left: 10, right: 10),
-      //child: TextFormField(
-      child: TextFieldBlocBuilder(
-        //onSaved: onSaved,
+      child: TextFormField(
+        //child: TextFieldBlocBuilder(
+        onSaved: onSaved,
         //validator: validator,
         autofocus: true,
         obscureText: obsecure,

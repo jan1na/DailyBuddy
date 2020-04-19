@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:daily_buddy_app/app.dart';
 import 'package:daily_buddy_app/blocs/blocs.dart';
 import 'package:daily_buddy_app/repositories/repositories.dart';
@@ -55,6 +57,8 @@ Future<void> main() async {
         lazy: false,
         create: (context) => UserBloc(),
       ),
+      BlocProvider<QuestionBloc>(
+          lazy: false, create: (context) => QuestionBloc())
     ],
     child: DailyBuddyApp(),
   ));

@@ -3,7 +3,6 @@ import 'package:daily_buddy_app/widgets/text_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_buddy_app/blocs/blocs.dart';
 import 'package:daily_buddy_app/models/models.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:jiffy/jiffy.dart';
@@ -54,9 +53,10 @@ class _WelcomePageStage extends State<WelcomePage> {
                   Icons.person,
                 )),
             ConfirmationButton(
-                lable: 'Registrieren',
-                color: Color(0xFF009785) //Theme.of(context).primaryColorDark,
-                ),
+              lable: 'Registrieren',
+              onPressed: () {},
+              //color: Theme.of(context).primaryColorDark,
+            ),
             SizedBox(
               height: 1,
             ),

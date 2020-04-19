@@ -22,7 +22,8 @@ class ConfirmationButton extends StatelessWidget {
               alignment: Alignment(0.0, 0.0),
               width: MediaQuery.of(context).size.width * 0.6,
               decoration: BoxDecoration(
-                  color: color, borderRadius: BorderRadius.circular(10)),
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(10)),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
