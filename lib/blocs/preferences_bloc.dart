@@ -18,11 +18,18 @@ class PreferencesBloc extends HydratedBloc<PreferencesEvent, PreferencesState> {
       case ToggleDarkModeEvent:
         yield* mapToggleDarkModeEvent();
         break;
+      case LoadInitialPreferencesEvent:
+        yield* mapLoadInitialPreferencesEvent();
+        break;
     }
   }
 
   Stream<PreferencesState> mapToggleDarkModeEvent() async* {
     yield PreferencesState(darkMode: !state.darkMode);
+  }
+
+  Stream<PreferencesState> mapLoadInitialPreferencesEvent() async* {
+    yield PreferencesInitial();
   }
 
   @override

@@ -22,7 +22,7 @@ class SchedulesAddTaskPage extends StatelessWidget {
                   ),
                   body: FormBlocListener<AddTaskFormBloc, String, String>(
                     onSuccess: (context, state) {
-                      Navigator.pop(context, state.successResponse);
+                      Navigator.of(context).pop(state.successResponse);
                     },
                     child: Card(
                       child: Column(
@@ -46,6 +46,16 @@ class SchedulesAddTaskPage extends StatelessWidget {
                               labelText: 'Uhrzeit',
                               prefixIcon: Icon(Icons.access_time),
                             ),
+                          ),
+                          DropdownFieldBlocBuilder<Duration>(
+                            selectFieldBloc: formBloc.selectDuration,
+                            decoration: InputDecoration(
+                              labelText: 'Dauer',
+                              prefixIcon: Icon(Icons.timelapse),
+                            ),
+                            itemBuilder: (context, value) =>
+                                Jiffy(Jiffy().startOf(Units.DAY).add(value)).Hm,
+                            showEmptyItem: false,
                           ),
                           DropdownFieldBlocBuilder<Category>(
                             selectFieldBloc: formBloc.selectCategory,

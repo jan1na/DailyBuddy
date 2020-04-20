@@ -11,3 +11,5 @@ abstract class PreferencesEvent extends Equatable {
 }
 
 class ToggleDarkModeEvent extends PreferencesEvent {}
+
+class LoadInitialPreferencesEvent extends PreferencesEvent {}

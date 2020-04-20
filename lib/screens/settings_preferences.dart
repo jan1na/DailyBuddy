@@ -7,12 +7,12 @@ import '../blocs/blocs.dart';
 class SettingsPreferences extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        BlocBuilder<PreferencesBloc, PreferencesState>(
-            builder: (context, PreferencesState preferencesState) {
-          final bool isDarkMode = preferencesState.darkMode;
-          return Card(
+    return BlocBuilder<PreferencesBloc, PreferencesState>(
+        builder: (context, PreferencesState preferencesState) {
+      final bool isDarkMode = preferencesState.darkMode;
+      return ListView(
+        children: <Widget>[
+          Card(
               child: ListTile(
             title: Text(
               'Dark Mode',
@@ -22,9 +22,9 @@ class SettingsPreferences extends StatelessWidget {
               onStateChanged: (_) => BlocProvider.of<PreferencesBloc>(context)
                   .add(ToggleDarkModeEvent()),
             ),
-          ));
-        }),
-      ],
-    );
+          )),
+        ],
+      );
+    });
   }
 }

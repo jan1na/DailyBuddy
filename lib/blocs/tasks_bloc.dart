@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:nanoid/nanoid.dart';
 
 import 'blocs.dart';
 import '../models/models.dart';
@@ -12,10 +13,12 @@ part 'tasks_state.dart';
 
 class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   final DaysBloc daysBloc;
+  final NavigationBloc navigationBloc;
   StreamSubscription daysBlocSubscription;
 
-  TasksBloc({BuildContext context})
-      : daysBloc = BlocProvider.of<DaysBloc>(context) {
+  TasksBloc({context})
+      : daysBloc = BlocProvider.of<DaysBloc>(context),
+        navigationBloc = BlocProvider.of<NavigationBloc>(context) {
     daysBlocSubscription =
         daysBloc.listen((daysState) => checkForOutdated(daysState));
   }
@@ -49,6 +52,15 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
       case RemoveTasksEvent:
         yield* mapRemoveTasksEvent(event);
         break;
+      case SetTaskStatusEvent:
+        yield* mapSetTaskStatusEvent(event);
+        break;
+      case ClearAllTasksEvent:
+        yield* mapClearAllTasksEvent(event);
+        break;
+      case RescheduleTaskEvent:
+        yield* mapRescheduleTaskEvent(event);
+        break;
     }
   }
 
@@ -64,10 +76,34 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
             .toList()));
   }
 
-  Stream<TasksState> mapRemoveTasksEvent(RemoveTaskEvent event) async* {
+  Stream<TasksState> mapRemoveTasksEvent(RemoveTasksEvent event) async* {
     yield TasksState(
         taskList: List<Task>.unmodifiable(state.taskList
-            .where((task) => !event.taskId.contains(task.taskId))
+            .where((task) => !event.taskIdList.contains(task.taskId))
+            .toList()));
+  }
+
+  Stream<TasksState> mapSetTaskStatusEvent(SetTaskStatusEvent event) async* {
+    yield TasksState(
+        taskList: List<Task>.unmodifiable(state.taskList
+            .map((task) => task.taskId == event.taskId
+                ? task.copyWith(status: event.taskStatus)
+                : task)
+            .toList()));
+  }
+
+  Stream<TasksState> mapClearAllTasksEvent(ClearAllTasksEvent event) async* {
+    yield TasksState(taskList: List.unmodifiable([]));
+  }
+
+  Stream<TasksState> mapRescheduleTaskEvent(RescheduleTaskEvent event) async* {
+    final newId = nanoid();
+    this.navigationBloc.add(OpenTaskDetailEvent(taskId: newId));
+    yield TasksState(
+        taskList: List<Task>.unmodifiable(state.taskList
+            .map((task) => task.taskId == event.taskId
+                ? task.copyWith(taskId: newId, startTime: event.startTime)
+                : task)
             .toList()));
   }
 

@@ -21,3 +21,9 @@ class RemoveTaskNotificationEvent extends NotificationsEvent {
   @override
   List<Object> get props => [taskId];
 }
+
+class ClearAllNotificationsEvent extends NotificationsEvent {
+  const ClearAllNotificationsEvent();
+  @override
+  List<Object> get props => [];
+}

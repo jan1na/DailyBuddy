@@ -28,3 +28,25 @@ class RemoveTasksEvent extends TasksEvent {
   @override
   List<Object> get props => [taskIdList];
 }
+
+class SetTaskStatusEvent extends TasksEvent {
+  final String taskId;
+  final TaskStatus taskStatus;
+  const SetTaskStatusEvent({this.taskId, this.taskStatus});
+  @override
+  List<Object> get props => [taskId, taskStatus];
+}
+
+class ClearAllTasksEvent extends TasksEvent {
+  const ClearAllTasksEvent();
+  @override
+  List<Object> get props => [];
+}
+
+class RescheduleTaskEvent extends TasksEvent {
+  final String taskId;
+  final DateTime startTime;
+  const RescheduleTaskEvent({this.taskId, this.startTime});
+  @override
+  List<Object> get props => [taskId, startTime];
+}

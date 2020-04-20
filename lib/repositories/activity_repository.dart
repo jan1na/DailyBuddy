@@ -67,43 +67,91 @@ class LocalActivityRepository implements ActivityRepository {
   }
 }
 
+String placeholderDescription =
+    "Hier könnte eine genaue Beschreibung der Aktivität stehen, mit weiterführenden Links, https://de.wikipedia.org zum Beispiel, die im Browser geöffnet werden.";
+
 final sportCategory = Category(categoryName: "Sport", color: Colors.orange);
 final sportActivities = [
-  Activity(activityName: "Spazieren", category: sportCategory),
-  Activity(activityName: "Joggen", category: sportCategory),
-  Activity(activityName: "Ballsport", category: sportCategory),
+  Activity(
+      activityName: "Spazieren",
+      category: sportCategory,
+      description: placeholderDescription),
+  Activity(
+      activityName: "Joggen",
+      category: sportCategory,
+      description: placeholderDescription),
+  Activity(
+      activityName: "Ballsport",
+      category: sportCategory,
+      description: placeholderDescription),
 ];
 
 final mentalCategory =
     Category(categoryName: "Mental Health", color: Colors.blue);
 final mentalActivities = [
-  Activity(activityName: "Selbstwertgefühl", category: mentalCategory),
-  Activity(activityName: "Stressresistenz", category: mentalCategory),
-  Activity(activityName: "Meditation", category: mentalCategory),
+  Activity(
+      activityName: "Selbstwertgefühl",
+      category: mentalCategory,
+      description: placeholderDescription),
+  Activity(
+      activityName: "Stressresistenz",
+      category: mentalCategory,
+      description: placeholderDescription),
+  Activity(
+      activityName: "Meditation",
+      category: mentalCategory,
+      description: placeholderDescription),
 ];
 
 final socialCategory =
     Category(categoryName: "Soziale Kontakte", color: Colors.purple);
 final socialActivities = [
-  Activity(activityName: "Telefonieren", category: socialCategory),
-  Activity(activityName: "Skypen", category: socialCategory),
-  Activity(activityName: "mit Nachbarn reden", category: socialCategory),
+  Activity(
+      activityName: "Telefonieren",
+      category: socialCategory,
+      description: placeholderDescription),
+  Activity(
+      activityName: "Skypen",
+      category: socialCategory,
+      description: placeholderDescription),
+  Activity(
+      activityName: "mit Nachbarn reden",
+      category: socialCategory,
+      description: placeholderDescription),
 ];
 
 final feedingCategory =
     Category(categoryName: "Ernährung", color: Colors.green);
 final feedingActivities = [
-  Activity(activityName: "Kochen", category: feedingCategory),
-  Activity(activityName: "Einkaufen", category: feedingCategory),
-  Activity(activityName: "Rezeptideen", category: feedingCategory),
+  Activity(
+      activityName: "Kochen",
+      category: feedingCategory,
+      description: placeholderDescription),
+  Activity(
+      activityName: "Einkaufen",
+      category: feedingCategory,
+      description: placeholderDescription),
+  Activity(
+      activityName: "Rezeptideen",
+      category: feedingCategory,
+      description: placeholderDescription),
 ];
 
 final creativeCategory =
     Category(categoryName: "Künstlerische Aktivitäten", color: Colors.cyan);
 final creativeActivities = [
-  Activity(activityName: "Malen", category: creativeCategory),
-  Activity(activityName: "Basteln", category: creativeCategory),
-  Activity(activityName: "Handarbeiten", category: creativeCategory),
+  Activity(
+      activityName: "Malen",
+      category: creativeCategory,
+      description: placeholderDescription),
+  Activity(
+      activityName: "Basteln",
+      category: creativeCategory,
+      description: placeholderDescription),
+  Activity(
+      activityName: "Handarbeiten",
+      category: creativeCategory,
+      description: placeholderDescription),
 ];
 
 final initialCategories = [

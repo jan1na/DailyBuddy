@@ -17,7 +17,16 @@ class DailyBuddyApp extends StatelessWidget {
             locale: Locale('de', ''),
             title: 'DailyBuddy',
             theme: isDarkMode ? darkTheme : defaultTheme,
-            home: SchedulesPage());
+            home: BlocListener<NavigationBloc, NavigationState>(
+                listener: (context, navigationState) {
+                  if (navigationState is NavigationToTaskDetail) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => TaskDetails(
+                              taskId: navigationState.taskId,
+                            )));
+                  }
+                },
+                child: SchedulesPage()));
       },
     );
   }

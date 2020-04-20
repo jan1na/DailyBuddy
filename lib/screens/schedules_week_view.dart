@@ -48,37 +48,26 @@ class SchedulesWeekView extends StatelessWidget {
                   dates: weekDays,
                   events: [
                     ...tasksState.taskList.map((t) => FlutterWeekViewEvent(
-                        title: t.activity.activityName,
-                        description: "",
-                        start: t.startTime,
-                        end: t.startTime.add(t.duration),
-                        backgroundColor: t.activity.category.color,
-                        onTap: () => showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('Aufgabe löschen'),
-                                  content: Text(
-                                      "Soll die Aufgabe ${t.activity.activityName} gelöscht werden?"),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("Ja"),
-                                      onPressed: () {
-                                        BlocProvider.of<TasksBloc>(context)
-                                            .add(RemoveTaskEvent(t.taskId));
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                    FlatButton(
-                                      child: Text("Nein"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            )))
+                          title: t.activity.activityName,
+                          description: t.activity.description,
+                          start: t.startTime,
+                          end: t.startTime.add(t.duration),
+                          backgroundColor: t.activity.category.color,
+                          onTap: () async {
+                            final String result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TaskDetails(
+                                          taskId: t.taskId,
+                                        )));
+
+                            Scaffold.of(context)..removeCurrentSnackBar();
+                            if (result != null) {
+                              Scaffold.of(context)
+                                ..showSnackBar(SnackBar(content: Text(result)));
+                            }
+                          },
+                        ))
                   ]);
             },
           );
@@ -87,11 +76,13 @@ class SchedulesWeekView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add_alarm),
         onPressed: () async {
-          final result = await Navigator.push(context,
+          final String result = await Navigator.push(context,
               MaterialPageRoute(builder: (context) => SchedulesAddTaskPage()));
-          Scaffold.of(context)
-            ..removeCurrentSnackBar()
-            ..showSnackBar(SnackBar(content: Text(result)));
+
+          Scaffold.of(context)..removeCurrentSnackBar();
+          if (result != null) {
+            Scaffold.of(context)..showSnackBar(SnackBar(content: Text(result)));
+          }
         },
       ),
     );

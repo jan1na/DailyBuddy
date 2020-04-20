@@ -27,23 +27,28 @@ class NotificationsBloc
 
   NotificationsBloc({this.localNotificationsPlugin, BuildContext context})
       : tasksBloc = BlocProvider.of<TasksBloc>(context) {
-    tasksBlocSubscription =
-        tasksBloc.listen((tasksState) => updateToTasksState(tasksState));
+    tasksBlocSubscription = tasksBloc.listen((tasksState) {
+      updateToTasksState(tasksState.taskList
+          .where((t) => t.status == TaskStatus.planed)
+          .toList());
+    });
   }
 
-  void updateToTasksState(TasksState tasksState) {
-    tasksState.taskList
+  void updateToTasksState(List<Task> planedTaskList) {
+    planedTaskList
         .where((task) => !state.taskNotificationMap.keys.contains(task.taskId))
         .forEach((task) => add(AddTaskNotificationEvent(task)));
     state.taskNotificationMap.keys
         .where((taskId) =>
-            !tasksState.taskList.map((task) => task.taskId).contains(taskId))
+            !planedTaskList.map((task) => task.taskId).contains(taskId))
         .forEach((taskId) => add(RemoveTaskNotificationEvent(taskId)));
   }
 
   @override
-  NotificationsState get initialState => NotificationsState(
-      taskNotificationMap: Map<String, int>.unmodifiable({}));
+  NotificationsState get initialState =>
+      super.initialState ??
+      NotificationsState(
+          taskNotificationMap: Map<String, int>.unmodifiable({}));
 
   @override
   Stream<NotificationsState> mapEventToState(
@@ -51,28 +56,30 @@ class NotificationsBloc
   ) async* {
     switch (event.runtimeType) {
       case AddTaskNotificationEvent:
-        yield* mapAddTaskNotificationEvent(
-            event, Map.of(state.taskNotificationMap));
+        yield* mapAddTaskNotificationEvent(event);
         break;
       case RemoveTaskNotificationEvent:
-        yield* mapRemoveTaskNotificationEvent(
-            event, Map.of(state.taskNotificationMap));
+        yield* mapRemoveTaskNotificationEvent(event);
+        break;
+      case ClearAllNotificationsEvent:
+        yield* mapClearAllNotificationsEvent(event);
         break;
     }
   }
 
   Stream<NotificationsState> mapAddTaskNotificationEvent(
-      AddTaskNotificationEvent event,
-      Map<String, int> taskNotificationMap) async* {
-    String generatedId = await generate('0123456789', 8);
-    int notificationId = int.tryParse(generatedId);
+      AddTaskNotificationEvent event) async* {
+    final generatedId = await generate('0123456789', 8);
+    final notificationId = int.tryParse(generatedId);
+    final taskNotificationMap = Map.of(state.taskNotificationMap);
 
     await localNotificationsPlugin.schedule(
         notificationId,
         "${event.task.activity.category.categoryName} Aufgabe",
         "${event.task.activity.activityName} ab ${Jiffy(event.task.startTime).Hm} Uhr",
         event.task.startTime,
-        notificationDetails);
+        notificationDetails,
+        payload: event.task.taskId);
 
     taskNotificationMap[event.task.taskId] = notificationId;
     yield NotificationsState(
@@ -81,13 +88,23 @@ class NotificationsBloc
   }
 
   Stream<NotificationsState> mapRemoveTaskNotificationEvent(
-      RemoveTaskNotificationEvent event,
-      Map<String, int> taskNotificationMap) async* {
-    await localNotificationsPlugin.cancel(taskNotificationMap[event.taskId]);
-    Map.of(taskNotificationMap).remove(event.taskId);
+      RemoveTaskNotificationEvent event) async* {
+    final taskNotificationMap = Map.of(state.taskNotificationMap);
+    final notificationId = taskNotificationMap[event.taskId];
+    if (notificationId != null) {
+      await localNotificationsPlugin.cancel(notificationId);
+    }
+    taskNotificationMap.remove(event.taskId);
     yield NotificationsState(
         taskNotificationMap:
             Map<String, int>.unmodifiable(taskNotificationMap));
+  }
+
+  Stream<NotificationsState> mapClearAllNotificationsEvent(
+      ClearAllNotificationsEvent event) async* {
+    await localNotificationsPlugin.cancelAll();
+    yield NotificationsState(
+        taskNotificationMap: Map<String, int>.unmodifiable({}));
   }
 
   @override

@@ -18,6 +18,19 @@ class AddTaskFormBloc extends FormBloc<String, String> {
   final selectTime = InputFieldBloc<TimeOfDay, Object>(
     validators: [(value) => (value == null) ? "Uhrzeit auswählen" : null],
   );
+  final selectDuration = SelectFieldBloc<Duration, Object>(
+    items: [
+      Duration(minutes: 15),
+      Duration(minutes: 30),
+      Duration(minutes: 45),
+      Duration(minutes: 60),
+      Duration(minutes: 90),
+      Duration(minutes: 120),
+      Duration(minutes: 180),
+    ],
+    initialValue: Duration(minutes: 60),
+    validators: [(value) => (value == null) ? "Dauer auswählen" : null],
+  );
 
   final BuildContext context;
 
@@ -26,11 +39,14 @@ class AddTaskFormBloc extends FormBloc<String, String> {
     selectDay.updateItems(daysState.weekDays);
     selectDay.updateInitialValue(daysState.today);
     selectCategory.updateItems(activitiesState.categories);
+    selectTime.updateInitialValue(
+        TimeOfDay(hour: DateTime.now().hour + 1, minute: 0));
 
     addFieldBlocs(
       fieldBlocs: [
         selectDay,
         selectTime,
+        selectDuration,
         selectCategory,
       ],
     );
@@ -55,7 +71,8 @@ class AddTaskFormBloc extends FormBloc<String, String> {
     final task = Task(
         activity: selectActivity.value,
         startTime: selectDay.value.add(Duration(
-            hours: selectTime.value.hour, minutes: selectTime.value.minute)));
+            hours: selectTime.value.hour, minutes: selectTime.value.minute)),
+        duration: selectDuration.value);
     BlocProvider.of<TasksBloc>(context).add(AddTaskEvent(task));
     emitSuccess(
         successResponse:
