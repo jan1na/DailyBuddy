@@ -5,3 +5,4 @@ export './settings.dart';
 export './settings_activities.dart';
 export './settings_preferences.dart';
 export './welcome.dart';
+export './questions.dart';

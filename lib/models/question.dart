@@ -43,6 +43,22 @@ class Question extends Equatable {
   bool get stringify => true;
 }
 
+class UiQuestion {
+  final String questionId;
+  DateTime startTime;
+  bool hasAnswer;
+  bool isRelevant;
+  final String relevantText;
+  final String questionText;
+
+  UiQuestion(this.questionId,
+      {this.startTime,
+      this.hasAnswer,
+      this.isRelevant,
+      this.questionText,
+      this.relevantText});
+}
+
 List<dynamic> Questions = [
   {
     'questionId': '1',

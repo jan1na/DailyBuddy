@@ -54,7 +54,9 @@ class _WelcomePageStage extends State<WelcomePage> {
                 )),
             ConfirmationButton(
               lable: 'Registrieren',
-              onPressed: () {},
+              onPressed: () {
+                _navigateToQuestions(context);
+              },
               //color: Theme.of(context).primaryColorDark,
             ),
             SizedBox(
@@ -62,5 +64,10 @@ class _WelcomePageStage extends State<WelcomePage> {
             ),
           ]);
     });
+  }
+
+  _navigateToQuestions(BuildContext context) async {
+    Route route = MaterialPageRoute(builder: (_) => QuestionsPage());
+    await Navigator.of(context).push(route);
   }
 }

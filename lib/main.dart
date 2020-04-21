@@ -1,4 +1,4 @@
-import 'dart:js';
+//import 'dart:js';
 
 import 'package:daily_buddy_app/app.dart';
 import 'package:daily_buddy_app/blocs/blocs.dart';
