@@ -16,7 +16,9 @@ class DailyBuddyApp extends StatelessWidget {
         return MaterialApp(
           locale: Locale('de', ''),
           title: 'DailyBuddy',
-          theme: isDarkMode ? darkTheme : defaultTheme,
+          themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          theme: defaultTheme,
+          darkTheme: darkTheme,
           home: DailyBuddyPage(),
         );
       },
