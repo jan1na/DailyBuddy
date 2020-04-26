@@ -4,3 +4,4 @@ export './schedules_week_view.dart';
 export './settings.dart';
 export './settings_activities.dart';
 export './settings_preferences.dart';
+export './emergency_contacts.dart';
