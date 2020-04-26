@@ -20,6 +20,12 @@ class AddTaskPage extends StatelessWidget {
                 onSuccess: (context, state) {
                   BlocProvider.of<NavigationBloc>(context)
                       .add(OpenWeekPlanPageEvent());
+                  BlocProvider.of<MessagesBloc>(context)
+                      .add(ShowInfoMessageEvent(state.successResponse));
+                },
+                onFailure: (context, state) {
+                  BlocProvider.of<MessagesBloc>(context)
+                      .add(ShowErrorMessageEvent(state.failureResponse));
                 },
                 child: Card(
                   child: Column(

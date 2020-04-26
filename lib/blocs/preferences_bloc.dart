@@ -15,8 +15,8 @@ class PreferencesBloc extends HydratedBloc<PreferencesEvent, PreferencesState> {
   @override
   Stream<PreferencesState> mapEventToState(PreferencesEvent event) async* {
     switch (event.runtimeType) {
-      case ToggleDarkModeEvent:
-        yield* mapToggleDarkModeEvent();
+      case SetDarkModeEvent:
+        yield* mapToggleDarkModeEvent((event as SetDarkModeEvent).isDarkMode);
         break;
       case LoadInitialPreferencesEvent:
         yield* mapLoadInitialPreferencesEvent();
@@ -24,8 +24,8 @@ class PreferencesBloc extends HydratedBloc<PreferencesEvent, PreferencesState> {
     }
   }
 
-  Stream<PreferencesState> mapToggleDarkModeEvent() async* {
-    yield PreferencesState(darkMode: !state.darkMode);
+  Stream<PreferencesState> mapToggleDarkModeEvent(bool isDarkMode) async* {
+    yield PreferencesState(darkMode: isDarkMode);
   }
 
   Stream<PreferencesState> mapLoadInitialPreferencesEvent() async* {

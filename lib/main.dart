@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:daily_buddy_app/app.dart';
 import 'package:daily_buddy_app/blocs/blocs.dart';
+import 'package:daily_buddy_app/blocs/messages_bloc.dart';
 import 'package:daily_buddy_app/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,6 +64,10 @@ Future<void> main() async {
       create: (context) => NotificationsBloc(
           localNotificationsPlugin: flutterLocalNotificationsPlugin,
           context: context),
+    ),
+    BlocProvider<MessagesBloc>(
+      lazy: false,
+      create: (context) => MessagesBloc(),
     ),
   ], child: DailyBuddyApp()));
 }

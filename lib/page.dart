@@ -6,42 +6,6 @@ import 'advisor.dart';
 import 'blocs/blocs.dart';
 import 'screens/screens.dart';
 
-class TopBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
-  const TopBar(this.title);
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      title: Text(title),
-      actions: <Widget>[
-        IconButton(
-          color: Theme.of(context).errorColor,
-          icon: Icon(Icons.cached),
-          onPressed: () {
-            BlocProvider.of<NotificationsBloc>(context)
-                .add(ClearAllNotificationsEvent());
-            BlocProvider.of<TasksBloc>(context).add(ClearAllTasksEvent());
-            BlocProvider.of<PreferencesBloc>(context)
-                .add(LoadInitialPreferencesEvent());
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.open_in_browser),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Advisor()),
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
-}
-
 class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -144,6 +108,94 @@ class BottomBar extends StatelessWidget {
   }
 }
 
+class Page extends StatelessWidget {
+  final String pageTitle;
+  final Widget pageContent;
+  final bool hasSideMenu;
+  final bool hasBottomMenu;
+  const Page({pageTitle, pageContent, hasSideMenu, hasBottomMenu})
+      : pageTitle = pageTitle ?? "",
+        pageContent = pageContent ?? null,
+        hasSideMenu = hasSideMenu ?? false,
+        hasBottomMenu = hasBottomMenu ?? false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: hasSideMenu ? SideBar() : null,
+      bottomNavigationBar: hasBottomMenu ? BottomBar() : null,
+      body: BlocListener<MessagesBloc, MessagesState>(
+          listener: (context, messageState) {
+            if (messageState is ShowMessage) {
+              final TextStyle textStyle = Theme.of(context).textTheme.subhead;
+              final double spacing = 10;
+              switch (messageState.runtimeType) {
+                case ShowErrorMessage:
+                  Color errorColor = Theme.of(context).errorColor;      
+                  Scaffold.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Wrap(
+                        spacing: spacing,
+                        children: <Widget>[
+                          Icon(Icons.error_outline, color: errorColor),
+                          Text(messageState.text,
+                              style: textStyle.copyWith(color: errorColor))
+                        ],
+                      ),
+                    ),
+                  );
+                  break;
+                case ShowInfoMessage:
+                Color infoColor = Theme.of(context).primaryColor;
+                  Scaffold.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Wrap(
+                        spacing: spacing,
+                        children: <Widget>[
+                          Icon(Icons.info_outline, color: infoColor),
+                          Text(messageState.text,
+                              style:textStyle.copyWith(color: infoColor))
+                        ],
+                      ),
+                    ),
+                  );
+                  break;
+              }
+            }
+          },
+          child: pageContent),
+      appBar: AppBar(
+        title: Text(pageTitle),
+        actions: <Widget>[
+          IconButton(
+            color: Theme.of(context).errorColor,
+            icon: Icon(Icons.cached),
+            onPressed: () {
+              BlocProvider.of<NotificationsBloc>(context)
+                  .add(ClearAllNotificationsEvent());
+              BlocProvider.of<TasksBloc>(context).add(ClearAllTasksEvent());
+              BlocProvider.of<PreferencesBloc>(context)
+                  .add(LoadInitialPreferencesEvent());
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.open_in_browser),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Advisor()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 void setPageByIndex({BuildContext context, int index}) {
   switch (index) {
     case 0:
@@ -165,35 +217,51 @@ void setPageByIndex({BuildContext context, int index}) {
   }
 }
 
-final Widget sideMenu = SideBar();
-final Widget bottomMenu = BottomBar();
-final List<Scaffold> mainPages = [
-  Scaffold(
-      appBar: TopBar("DailyBuddy"),
-      body: DashboardPage(),
-      drawer: sideMenu,
-      bottomNavigationBar: bottomMenu),
-  Scaffold(
-      appBar: TopBar("Assistent"),
-      body: QuestionsPage(),
-      drawer: sideMenu,
-      bottomNavigationBar: bottomMenu),
-  Scaffold(
-      appBar: TopBar("Wochenziele"),
-      body: WeekGoalsPage(),
-      drawer: sideMenu,
-      bottomNavigationBar: bottomMenu),
-  Scaffold(
-      appBar: TopBar("Wochenplan"),
-      body: WeekPlanPage(),
-      drawer: sideMenu,
-      bottomNavigationBar: bottomMenu),
-  Scaffold(
-      appBar: TopBar("Notfallkontakte"),
-      body: EmergencyContactsPage(),
-      drawer: sideMenu,
-      bottomNavigationBar: bottomMenu),
-];
+Widget getPageByIndex({BuildContext context, int index}) {
+  switch (index) {
+    case 0:
+      return Page(
+          pageTitle: "DailyBuddy",
+          pageContent: DashboardPage(),
+          hasBottomMenu: true,
+          hasSideMenu: true);
+      break;
+    case 1:
+      return Page(
+          pageTitle: "Assistent",
+          pageContent: QuestionsPage(),
+          hasBottomMenu: true,
+          hasSideMenu: true);
+      break;
+    case 2:
+      return Page(
+          pageTitle: "Wochenziele",
+          pageContent: WeekGoalsPage(),
+          hasBottomMenu: true,
+          hasSideMenu: true);
+      break;
+    case 3:
+      return Page(
+          pageTitle: "Wochenplan",
+          pageContent: WeekPlanPage(),
+          hasBottomMenu: true,
+          hasSideMenu: true);
+      break;
+    case 4:
+      return Page(
+          pageTitle: "Notfallkontakte",
+          pageContent: EmergencyContactsPage(),
+          hasBottomMenu: true,
+          hasSideMenu: true);
+      break;
+    default:
+      return Page(
+          pageTitle: "",
+          pageContent: Container(),
+          hasBottomMenu: true,
+          hasSideMenu: true);
+  }
+}
 
 class DailyBuddyPage extends StatelessWidget {
   const DailyBuddyPage({Key key}) : super(key: key);
@@ -208,55 +276,39 @@ class DailyBuddyPage extends StatelessWidget {
         }
       } else {
         if (navigationState is SideNavigation) {
-          Scaffold sidePage;
+          Widget sidePage;
           switch (navigationState.runtimeType) {
             case PreferencesPageNavigation:
-              sidePage = Scaffold(
-                appBar: TopBar("App Einstellungen"),
-                body: PreferencesPage(),
-              );
+              sidePage = Page(
+                  pageTitle: "App Einstellungen",
+                  pageContent: PreferencesPage());
               break;
             case AboutUsPageNavigation:
-              sidePage = Scaffold(
-                appBar: TopBar("Über Uns"),
-                body: AboutUsPage(),
-              );
+              sidePage =
+                  Page(pageTitle: "Über Uns", pageContent: AboutUsPage());
               break;
             case ActivitiesPageNavigation:
-              sidePage = Scaffold(
-                appBar: TopBar("Aktivitäten"),
-                body: ActivitiesPage(),
-              );
+              sidePage =
+                  Page(pageTitle: "Aktivitäten", pageContent: ActivitiesPage());
               break;
             case FeedbackPageNavigation:
-              sidePage = Scaffold(
-                appBar: TopBar("Feedback"),
-                body: FeedbackPage(),
-              );
+              sidePage =
+                  Page(pageTitle: "Feedback", pageContent: FeedbackPage());
               break;
             case HelpPageNavigation:
-              sidePage = Scaffold(
-                appBar: TopBar("Hilfe"),
-                body: HelpPage(),
-              );
+              sidePage = Page(pageTitle: "Hilfe", pageContent: HelpPage());
               break;
             case UserProfilePageNavigation:
-              sidePage = Scaffold(
-                appBar: TopBar("Profil"),
-                body: UserProfilPage(),
-              );
+              sidePage =
+                  Page(pageTitle: "Profil", pageContent: UserProfilPage());
               break;
             case UserResourcesPageNavigation:
-              sidePage = Scaffold(
-                appBar: TopBar("Resourcen"),
-                body: UserResourcesPage(),
-              );
+              sidePage = Page(
+                  pageTitle: "Resourcen", pageContent: UserResourcesPage());
               break;
             case UserSuccessesPageNavigation:
-              sidePage = Scaffold(
-                appBar: TopBar("Erfolge"),
-                body: UserSuccessesPage(),
-              );
+              sidePage =
+                  Page(pageTitle: "Erfolge", pageContent: UserSuccessesPage());
               break;
           }
           if (sidePage != null) {
@@ -267,18 +319,16 @@ class DailyBuddyPage extends StatelessWidget {
           }
         }
         if (navigationState is SubNavigation) {
-          Scaffold subPage;
+          Widget subPage;
           switch (navigationState.runtimeType) {
             case AddTaskPageNavigation:
-              subPage = Scaffold(
-                appBar: TopBar("Neue Aufgabe"),
-                body: AddTaskPage(),
-              );
+              subPage =
+                  Page(pageTitle: "Neue Aufgabe", pageContent: AddTaskPage());
               break;
             case TaskDetailPageNavigation:
-              subPage = Scaffold(
-                appBar: TopBar("Aufgabe"),
-                body: TaskDetailsPage(
+              subPage = Page(
+                pageTitle: "Aufgabe",
+                pageContent: TaskDetailsPage(
                     taskId:
                         (navigationState as TaskDetailPageNavigation).taskId),
               );
@@ -293,8 +343,8 @@ class DailyBuddyPage extends StatelessWidget {
         }
       }
     }, child: BlocBuilder<NavigationBloc, NavigationState>(
-            builder: (context, navigationState) {
-      return mainPages[navigationState.tabIndex];
+            builder: (context, tabState) {
+      return getPageByIndex(context: context, index: tabState.tabIndex);
     }));
   }
 }

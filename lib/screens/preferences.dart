@@ -18,10 +18,13 @@ class PreferencesPage extends StatelessWidget {
               'Dark Mode',
             ),
             trailing: DayNightSwitcher(
-              isDarkModeEnabled: isDarkMode,
-              onStateChanged: (_) => BlocProvider.of<PreferencesBloc>(context)
-                  .add(ToggleDarkModeEvent()),
-            ),
+                isDarkModeEnabled: isDarkMode,
+                onStateChanged: (state) {
+                  BlocProvider.of<PreferencesBloc>(context)
+                      .add(SetDarkModeEvent(isDarkMode: state));
+                  BlocProvider.of<MessagesBloc>(context).add(ShowInfoMessageEvent(
+                      "Der ${state ? 'Nacht-Modus' : 'Tag-Modus'} wurde aktiviert"));
+                }),
           )),
         ],
       );

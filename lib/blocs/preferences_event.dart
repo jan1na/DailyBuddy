@@ -10,6 +10,11 @@ abstract class PreferencesEvent extends Equatable {
   bool get stringify => true;
 }
 
-class ToggleDarkModeEvent extends PreferencesEvent {}
+class SetDarkModeEvent extends PreferencesEvent {
+  final bool isDarkMode;
+  const SetDarkModeEvent({this.isDarkMode});
+  @override
+  List<Object> get props => [isDarkMode];
+}
 
 class LoadInitialPreferencesEvent extends PreferencesEvent {}
