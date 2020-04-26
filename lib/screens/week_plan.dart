@@ -4,9 +4,8 @@ import 'package:flutter_week_view/flutter_week_view.dart';
 import 'package:jiffy/jiffy.dart';
 
 import '../blocs/blocs.dart';
-import 'screens.dart';
 
-class SchedulesWeekView extends StatelessWidget {
+class WeekPlanPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,43 +47,22 @@ class SchedulesWeekView extends StatelessWidget {
                   dates: weekDays,
                   events: [
                     ...tasksState.taskList.map((t) => FlutterWeekViewEvent(
-                          title: t.activity.activityName,
-                          description: t.activity.description,
-                          start: t.startTime,
-                          end: t.startTime.add(t.duration),
-                          backgroundColor: t.activity.category.color,
-                          onTap: () async {
-                            final String result = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => TaskDetails(
-                                          taskId: t.taskId,
-                                        )));
-
-                            Scaffold.of(context)..removeCurrentSnackBar();
-                            if (result != null) {
-                              Scaffold.of(context)
-                                ..showSnackBar(SnackBar(content: Text(result)));
-                            }
-                          },
-                        ))
+                        title: t.activity.activityName,
+                        description: t.activity.description,
+                        start: t.startTime,
+                        end: t.startTime.add(t.duration),
+                        backgroundColor: t.activity.category.color,
+                        onTap: () => BlocProvider.of<NavigationBloc>(context)
+                            .add(OpenTaskDetailsPageEvent(taskId: t.taskId))))
                   ]);
             },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add_alarm),
-        onPressed: () async {
-          final String result = await Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SchedulesAddTaskPage()));
-
-          Scaffold.of(context)..removeCurrentSnackBar();
-          if (result != null) {
-            Scaffold.of(context)..showSnackBar(SnackBar(content: Text(result)));
-          }
-        },
-      ),
+          child: Icon(Icons.add_alarm),
+          onPressed: () => BlocProvider.of<NavigationBloc>(context)
+              .add(OpenAddTaskPageEvent())),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/blocs.dart';
-import 'screens/screens.dart';
+import 'page.dart';
 import 'themes.dart';
 
 class DailyBuddyApp extends StatelessWidget {
@@ -14,19 +14,11 @@ class DailyBuddyApp extends StatelessWidget {
       builder: (context, PreferencesState preferencesState) {
         final bool isDarkMode = preferencesState.darkMode;
         return MaterialApp(
-            locale: Locale('de', ''),
-            title: 'DailyBuddy',
-            theme: isDarkMode ? darkTheme : defaultTheme,
-            home: BlocListener<NavigationBloc, NavigationState>(
-                listener: (context, navigationState) {
-                  if (navigationState is NavigationToTaskDetail) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => TaskDetails(
-                              taskId: navigationState.taskId,
-                            )));
-                  }
-                },
-                child: SchedulesPage()));
+          locale: Locale('de', ''),
+          title: 'DailyBuddy',
+          theme: isDarkMode ? darkTheme : defaultTheme,
+          home: DailyBuddyPage(),
+        );
       },
     );
   }

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nanoid/nanoid.dart';
@@ -13,12 +12,9 @@ part 'tasks_state.dart';
 
 class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   final DaysBloc daysBloc;
-  final NavigationBloc navigationBloc;
   StreamSubscription daysBlocSubscription;
 
-  TasksBloc({context})
-      : daysBloc = BlocProvider.of<DaysBloc>(context),
-        navigationBloc = BlocProvider.of<NavigationBloc>(context) {
+  TasksBloc({context}) : daysBloc = BlocProvider.of<DaysBloc>(context) {
     daysBlocSubscription =
         daysBloc.listen((daysState) => checkForOutdated(daysState));
   }
@@ -98,7 +94,6 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
 
   Stream<TasksState> mapRescheduleTaskEvent(RescheduleTaskEvent event) async* {
     final newId = nanoid();
-    this.navigationBloc.add(OpenTaskDetailEvent(taskId: newId));
     yield TasksState(
         taskList: List<Task>.unmodifiable(state.taskList
             .map((task) => task.taskId == event.taskId

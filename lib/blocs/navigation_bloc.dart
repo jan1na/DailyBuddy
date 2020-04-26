@@ -12,21 +12,63 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   NavigationBloc({Stream notificationSelectedStream}) {
     notificationSelectedSubscription =
         notificationSelectedStream.listen((playload) {
-      add(OpenTaskDetailEvent(taskId: playload));
+      add(OpenTaskDetailsPageEvent(taskId: playload));
     });
   }
 
   @override
-  NavigationState get initialState => NavigationInitial();
+  NavigationState get initialState => DashboardPageNavigation();
 
   @override
   Stream<NavigationState> mapEventToState(
     NavigationEvent event,
   ) async* {
     switch (event.runtimeType) {
-      case OpenTaskDetailEvent:
-        yield NavigationToTaskDetail(
-            taskId: (event as OpenTaskDetailEvent).taskId);
+      case OpenTaskDetailsPageEvent:
+        yield TaskDetailPageNavigation(
+            taskId: (event as OpenTaskDetailsPageEvent).taskId);
+        break;
+      case OpenAddTaskPageEvent:
+        yield AddTaskPageNavigation();
+        break;
+      case OpenWeekPlanPageEvent:
+        yield WeekPlanPageNavigation();
+        break;
+      case OpenDashboardPageEvent:
+        yield DashboardPageNavigation();
+        break;
+      case OpenQuestionsPageEvent:
+        yield QuestionsPageNavigation();
+        break;
+      case OpenWeekGoalsPageEvent:
+        yield WeekGoalsPageNavigation();
+        break;
+      case OpenEmergencyContactsPageEvent:
+        yield EmergencyContactsPageNavigation();
+        break;
+      case OpenPreferencesPageEvent:
+        yield PreferencesPageNavigation(tabIndex: state.tabIndex);
+        break;
+      case OpenAboutUsPageEvent:
+        yield AboutUsPageNavigation(tabIndex: state.tabIndex);
+        break;
+      case OpenActivitiesPageEvent:
+        yield ActivitiesPageNavigation(tabIndex: state.tabIndex);
+        break;
+      case OpenFeedbackPageEvent:
+        yield FeedbackPageNavigation(tabIndex: state.tabIndex);
+        break;
+      case OpenHelpPageEvent:
+        yield HelpPageNavigation(tabIndex: state.tabIndex);
+        break;
+      case OpenUserProfilePageEvent:
+        yield UserProfilePageNavigation(tabIndex: state.tabIndex);
+        break;
+      case OpenUserResourcesPageEvent:
+        yield UserResourcesPageNavigation(tabIndex: state.tabIndex);
+        break;
+      case OpenUserSuccessesPageEvent:
+        yield UserSuccessesPageNavigation(tabIndex: state.tabIndex);
         break;
     }
   }

@@ -4,7 +4,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import '../blocs/blocs.dart';
 
-class SettingsActivities extends StatelessWidget {
+class ActivitiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ActivitiesBloc, ActivitiesState>(
