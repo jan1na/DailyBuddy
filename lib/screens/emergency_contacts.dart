@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:daily_buddy_app/themes.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EmergencyContacts extends StatefulWidget
 {
@@ -9,11 +10,13 @@ class EmergencyContacts extends StatefulWidget
 
 class _EmergencyContactsState extends State<EmergencyContacts>
 {
+  Column _emergencyContacts = createEmergencyContacts('MyEmergencyContacts');
+
   @override
   Widget build(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
     final heightScreen = MediaQuery.of(context).size.height;
-    Column _emergencyContacts = createEmergencyContacts('MyEmergencyContacts');
+
     return Scaffold(
       appBar: AppBar(centerTitle: true,
         title: Text('Notfallkontakte'),
@@ -82,7 +85,7 @@ class _EmergencyContactsState extends State<EmergencyContacts>
     );
   }
 
-  Column createEmergencyContacts (String buttonName)
+  static Column createEmergencyContacts (String buttonName)
   {
     Column contactsColumn;
 
@@ -96,7 +99,34 @@ class _EmergencyContactsState extends State<EmergencyContacts>
                 mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(Icons.phone),
-                    Text('Bitte Nummer hinterlegen')
+                    RaisedButton(
+                        color: defaultTheme.accentColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(18)
+                            )
+                        ),
+                        child: Text('Beispiel Notkontakt 1'),
+                        onPressed: () => launch("tel: 8383838" )
+                    )
+                  ])
+          ),
+          Container(
+              child:
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.phone),
+                    RaisedButton(
+                        color: defaultTheme.accentColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(18)
+                            )
+                        ),
+                        child: Text('Beispiel Notkontakt 2'),
+                        onPressed: () => launch("tel: 123454321" )
+                    )
                   ])
           )
         ]
@@ -110,17 +140,36 @@ class _EmergencyContactsState extends State<EmergencyContacts>
               Container(
                 child:
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
                 Icon(Icons.phone),
-                Text('Polizei Notruf')
-                  ])
+                RaisedButton(
+                  color: defaultTheme.accentColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(18)
+                      )
+                  ),
+                  child: Text('Beispiel Notruf'),
+                  onPressed: () => launch("tel: 8374858" )
+              )  ])
               ),
               Container(
                   child:
                   Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(Icons.phone),
-                        Text('Feuerwehr Rettungsdienst')
+                        RaisedButton(
+                            color: defaultTheme.accentColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(18)
+                                )
+                            ),
+                            child: Text('Beispiel Rettungsdienst'),
+                            onPressed: () => launch("tel: 112221122" )
+                        )
                       ])
               )
             ]
