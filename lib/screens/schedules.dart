@@ -8,7 +8,7 @@ class SchedulesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Wochenplan'),
+          title: const Text('Wochenplan'),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.open_in_browser),

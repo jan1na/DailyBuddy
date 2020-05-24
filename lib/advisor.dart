@@ -7,15 +7,15 @@ class Advisor extends StatefulWidget {
 }
 
 class AdvisorState extends State<Advisor> {
-  Widget screen;
+  Widget _screen;
 
   AdvisorState() {
-    screen = new Start(screenChanged: change);
+    _screen = Start(screenChanged: change);
   }
 
   void change(Widget screen) {
     setState(() {
-      this.screen = screen;
+      this._screen = screen;
     });
   }
 
@@ -26,7 +26,7 @@ class AdvisorState extends State<Advisor> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: screen,
+      home: _screen,
     );
   }
 }
