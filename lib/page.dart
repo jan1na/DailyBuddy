@@ -180,16 +180,7 @@ class Page extends StatelessWidget {
               BlocProvider.of<PreferencesBloc>(context)
                   .add(LoadInitialPreferencesEvent());
             },
-          ),
-          IconButton(
-            icon: Icon(Icons.open_in_browser),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Advisor()),
-              );
-            },
-          ),
+          )
         ],
       ),
     );
