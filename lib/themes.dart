@@ -6,18 +6,21 @@ final ThemeData defaultTheme = ThemeData.from(
     brightness: Brightness.light,
     primarySwatch: Colors.teal,
     primaryColorDark: Colors.teal[700],
-    accentColor: Colors.amber[500],
+    accentColor: Colors.amber[400],
     errorColor: Colors.deepOrange[500],
     cardColor: Colors.blueGrey[100],
-    backgroundColor: Colors.blueGrey[200],
+    backgroundColor: Colors.white
   ),
   textTheme: GoogleFonts.ubuntuTextTheme(
     ThemeData.light().textTheme
   ).apply(
     displayColor: Colors.blueGrey[800],
     bodyColor: Colors.blueGrey[900],
-    decorationColor: Colors.teal[700],
+    decorationColor: Colors.teal[700]
   ),
+
+).copyWith(
+    unselectedWidgetColor: Colors.pink[600]
 );
 
 final ThemeData darkTheme = ThemeData.from(

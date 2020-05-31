@@ -27,7 +27,7 @@ class SideBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.assignment),
-            title: Text('Resourcen'),
+            title: Text('Ressourcen'),
             onTap: () => BlocProvider.of<NavigationBloc>(context)
                 .add(OpenUserResourcesPageEvent()),
           ),
@@ -79,6 +79,11 @@ class BottomBar extends StatelessWidget {
     return BlocBuilder<NavigationBloc, NavigationState>(
         builder: (context, navigationState) {
       return BottomNavigationBar(
+        // backgroundcolor not working with BottomNavigationBarType.shifting
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Theme.of(context).primaryColor,
+        selectedItemColor: Theme.of(context).accentColor,
+        unselectedItemColor: Theme.of(context).unselectedWidgetColor,
         currentIndex: navigationState.tabIndex,
         items: [
           BottomNavigationBarItem(
