@@ -300,7 +300,7 @@ class DailyBuddyPage extends StatelessWidget {
               break;
             case UserResourcesPageNavigation:
               sidePage = Page(
-                  pageTitle: "Resourcen", pageContent: UserResourcesPage());
+                  pageTitle: "Ressourcen", pageContent: UserResourcesPage());
               break;
             case UserSuccessesPageNavigation:
               sidePage =

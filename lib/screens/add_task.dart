@@ -80,7 +80,7 @@ class AddTaskPage extends StatelessWidget {
                           FlatButton.icon(
                             label: Text('Speichern'),
                             icon: Icon(Icons.save),
-                            onPressed: formBloc.submit,
+                            //onPressed: formBloc.submit,
                           ),
                         ],
                       ),
