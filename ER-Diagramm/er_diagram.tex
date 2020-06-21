@@ -1,5 +1,6 @@
 % Entity-relationship diagram
 \documentclass{article}
+\usepackage{amsmath}
 \usepackage{ngerman}
 \usepackage{tikz}
 \usepackage{geometry}
@@ -32,7 +33,7 @@
 
   \path (belongs_to) edge node {n} (activity) edge node {1}	(category);
   
-\node[relationship] [node distance=6cm](chose) [below = of schwerpunkt] {hat ausgew"ahlt};  
+\node[relationship] [node distance=6cm](chose) [below = of schwerpunkt] {w"ahlt};  
   
   \node[entity] (user) [below = of chose]	{Benutzer};
   	\node[attribute] (user_id) [below =of user] {\underline{ID}} edge (user);
@@ -48,7 +49,7 @@
   
   \path (user_has_activity) edge node {m} (activity) edge node {n}	(user);
   
-  \node[relationship] [node distance=8cm] (rule) [above left=5cm and 4cm of activity] {Regelung}; 
+  \node[relationship] [node distance=8cm] (rule) [above left=5cm and 4cm of activity] {bestimmt}; 
   
   \node[attribute] (per_week) [right =of rule] {Anzahl pro Woche} edge (rule);
   
@@ -57,5 +58,45 @@
 \end{tikzpicture}
 \\ \\
 \textbf{Tabellen:}\\
-Aktivit"at mit Fremdschl"ussel aus Kategorie, Schwerpunkt, Kategorie, mit
+
+Aktivit"at:		
+$\quad \begin{array}{|c|c|c|c|c|}                                           
+ID & Kategorie-ID & Name & Anleitung
+\end{array}$
+
+Benutzer:	
+$\quad \begin{array}{|c|c|c|c|c|}                                           
+ID & Name & usw
+\end{array}$
+
+Schwerpunkt:	
+$\quad \begin{array}{|c|c|c|c|c|}                                           
+Nummer & Name & Informationen
+\end{array}$
+
+Kategorie:	
+$\quad \begin{array}{|c|c|c|c|c|}                                           
+ID & Name & Pflicht-pro-Woche
+\end{array}$
+
+Benutzer-w"ahlt-Schwerpunkt:	
+$\quad \begin{array}{|c|c|c|c|c|}                                           
+Benutzer-ID & Schwerpunkt-Nummer
+\end{array}$
+
+Schwerpunkt-bestimmmt-Kategorie:	
+$\quad \begin{array}{|c|c|c|c|c|}                                           
+Schwerpunkt-Nummer & Kategorie-ID & Anzahl-pro-Woche
+\end{array}$
+
+Benutzer-macht-Aktivit"at:	
+$\quad \begin{array}{|c|c|c|c|c|}                                           
+Bentzer-ID & Aktivit"at-ID & erledigt & Zeitpunkt
+\end{array}$
+
+Aktivit"at-mit-Schwerpunkt:	
+$\quad \begin{array}{|c|c|c|c|c|}                                           
+Aktivit"at-ID & Schwerpunkt-Nummer & Code & ist-pflicht? & Priorit"at
+\end{array}$
+
 \end{document}
