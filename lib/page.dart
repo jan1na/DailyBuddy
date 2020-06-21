@@ -20,16 +20,10 @@ class SideBar extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.assignment_ind),
-            title: Text('Profil'),
-            onTap: () => BlocProvider.of<NavigationBloc>(context)
-                .add(OpenUserProfilePageEvent()),
-          ),
-          ListTile(
             leading: Icon(Icons.assignment),
-            title: Text('Ressourcen'),
+            title: Text('Wiki'),
             onTap: () => BlocProvider.of<NavigationBloc>(context)
-                .add(OpenUserResourcesPageEvent()),
+                .add(OpenWikiPageEvent()),
           ),
           ListTile(
             leading: Icon(Icons.assignment_turned_in),
@@ -39,9 +33,9 @@ class SideBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.local_activity),
-            title: Text('Aktivitäten'),
+            title: Text('Kalender'),
             onTap: () => BlocProvider.of<NavigationBloc>(context)
-                .add(OpenActivitiesPageEvent()),
+                .add(OpenCalendarPageEvent()),
           ),
           ListTile(
             leading: Icon(Icons.settings),
@@ -283,9 +277,9 @@ class DailyBuddyPage extends StatelessWidget {
               sidePage =
                   Page(pageTitle: "Über Uns", pageContent: AboutUsPage());
               break;
-            case ActivitiesPageNavigation:
+            case CalendarPageNavigation:
               sidePage =
-                  Page(pageTitle: "Aktivitäten", pageContent: ActivitiesPage());
+                  Page(pageTitle: "Kalender", pageContent: ActivitiesPage());
               break;
             case FeedbackPageNavigation:
               sidePage =
@@ -294,13 +288,9 @@ class DailyBuddyPage extends StatelessWidget {
             case HelpPageNavigation:
               sidePage = Page(pageTitle: "Hilfe", pageContent: HelpPage());
               break;
-            case UserProfilePageNavigation:
-              sidePage =
-                  Page(pageTitle: "Profil", pageContent: UserProfilPage());
-              break;
-            case UserResourcesPageNavigation:
+            case WikiPageNavigation:
               sidePage = Page(
-                  pageTitle: "Ressourcen", pageContent: UserResourcesPage());
+                  pageTitle: "Wiki", pageContent: WikiPage());
               break;
             case UserSuccessesPageNavigation:
               sidePage =

@@ -25,7 +25,7 @@ class OpenPreferencesPageEvent extends NavigationEvent {}
 
 class OpenAboutUsPageEvent extends NavigationEvent {}
 
-class OpenActivitiesPageEvent extends NavigationEvent {}
+class OpenCalendarPageEvent extends NavigationEvent {}
 
 class OpenEmergencyContactsPageEvent extends NavigationEvent {}
 
@@ -35,9 +35,7 @@ class OpenHelpPageEvent extends NavigationEvent {}
 
 class OpenQuestionsPageEvent extends NavigationEvent {}
 
-class OpenUserProfilePageEvent extends NavigationEvent {}
-
-class OpenUserResourcesPageEvent extends NavigationEvent {}
+class OpenWikiPageEvent extends NavigationEvent {}
 
 class OpenUserSuccessesPageEvent extends NavigationEvent {}
 

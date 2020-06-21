@@ -60,8 +60,8 @@ class AboutUsPageNavigation extends SideNavigation {
   const AboutUsPageNavigation({int tabIndex}) : super(tabIndex: tabIndex);
 }
 
-class ActivitiesPageNavigation extends SideNavigation {
-  const ActivitiesPageNavigation({int tabIndex}) : super(tabIndex: tabIndex);
+class CalendarPageNavigation extends SideNavigation {
+  const CalendarPageNavigation({int tabIndex}) : super(tabIndex: tabIndex);
 }
 
 class FeedbackPageNavigation extends SideNavigation {
@@ -76,8 +76,8 @@ class UserProfilePageNavigation extends SideNavigation {
   const UserProfilePageNavigation({int tabIndex}) : super(tabIndex: tabIndex);
 }
 
-class UserResourcesPageNavigation extends SideNavigation {
-  const UserResourcesPageNavigation({int tabIndex}) : super(tabIndex: tabIndex);
+class WikiPageNavigation extends SideNavigation {
+  const WikiPageNavigation({int tabIndex}) : super(tabIndex: tabIndex);
 }
 
 class UserSuccessesPageNavigation extends SideNavigation {

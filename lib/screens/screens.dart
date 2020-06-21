@@ -10,7 +10,6 @@ export './emergency_contacts.dart';
 export './feedback.dart';
 export './help.dart';
 export './questions.dart';
-export './user_profile.dart';
-export './user_resources.dart';
 export './user_successes.dart';
 export './week_goals.dart';
+export './wiki.dart';

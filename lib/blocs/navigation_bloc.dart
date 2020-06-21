@@ -52,8 +52,8 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
       case OpenAboutUsPageEvent:
         yield AboutUsPageNavigation(tabIndex: state.tabIndex);
         break;
-      case OpenActivitiesPageEvent:
-        yield ActivitiesPageNavigation(tabIndex: state.tabIndex);
+      case OpenCalendarPageEvent:
+        yield CalendarPageNavigation(tabIndex: state.tabIndex);
         break;
       case OpenFeedbackPageEvent:
         yield FeedbackPageNavigation(tabIndex: state.tabIndex);
@@ -61,11 +61,8 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
       case OpenHelpPageEvent:
         yield HelpPageNavigation(tabIndex: state.tabIndex);
         break;
-      case OpenUserProfilePageEvent:
-        yield UserProfilePageNavigation(tabIndex: state.tabIndex);
-        break;
-      case OpenUserResourcesPageEvent:
-        yield UserResourcesPageNavigation(tabIndex: state.tabIndex);
+      case OpenWikiPageEvent:
+        yield WikiPageNavigation(tabIndex: state.tabIndex);
         break;
       case OpenUserSuccessesPageEvent:
         yield UserSuccessesPageNavigation(tabIndex: state.tabIndex);
