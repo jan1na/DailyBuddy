@@ -2,6 +2,8 @@
 \documentclass{article}
 \usepackage{ngerman}
 \usepackage{tikz}
+\usepackage{geometry}
+\newgeometry{vmargin={5mm}, hmargin={5mm,5mm}}   % set the margins
 \usetikzlibrary{er,positioning}
 \begin{document}
 \begin{tikzpicture}[auto,node distance=1.5cm]
@@ -12,7 +14,7 @@
   \node[relationship] (mit) [right = of activity] {mit};
   	\node[attribute] (code) [above =of mit] {Code} edge (mit);
   	\node[attribute] (priority) [below  =of mit] {Priorit"at} edge (mit);
-  	\node[attribute] (pflicht) [below right=of mit] {ist Pflicht?} edge (mit);
+  	\node[attribute] (pflicht) [above right=of mit] {ist Pflicht?} edge (mit);
 
   \node[entity] (schwerpunkt) [right = of mit]	{Schwerpunkt};
   	\node[attribute] (information) [above right =of schwerpunkt] {Informationen} edge (schwerpunkt);
@@ -21,14 +23,37 @@
 
   \path (mit) edge node {n} (activity) edge node {m} (schwerpunkt);
     
-  \node[relationship] (belongs_to) [below = of activity] {geh"ort zu};
+  \node[relationship] (belongs_to) [below left = of activity] {geh"ort zu};
 
   \node[entity] (category) [below = of belongs_to]	{Kategorie};
-  	\node[attribute] (per_week) [below =of category] {Anzahl pro Woche} edge (category);
+  	\node[attribute] (per_week) [above left =of category] {Pflicht pro Woche} edge (category);
   	\node[attribute] (category_name) [left =of category] {Name} edge (category);
-  	\node[attribute] (category_id) [right=of category] {\underline{ID}} edge (category);
+  	\node[attribute] (category_id) [below left =of category] {\underline{ID}} edge (category);
 
   \path (belongs_to) edge node {n} (activity) edge node {1}	(category);
+  
+\node[relationship] [node distance=6cm](chose) [below = of schwerpunkt] {hat ausgew"ahlt};  
+  
+  \node[entity] (user) [below = of chose]	{Benutzer};
+  	\node[attribute] (user_id) [below =of user] {\underline{ID}} edge (user);
+  	\node[attribute] (user_name) [left =of user] {Name} edge (user);
+  	\node[attribute] (usw) [right=of user] {...} edge (user);
+
+  \path (chose) edge node {m} (schwerpunkt) edge node {n}	(user);
+  
+  \node[relationship] [node distance=4cm](user_has_activity) [below = of activity] {macht}; 
+  
+  \node[attribute] (time) [right =of user_has_activity] {Zeitpunkt} edge (user_has_activity);
+  \node[attribute] (done) [above right=of user_has_activity] {erledigt} edge (user_has_activity);
+  
+  \path (user_has_activity) edge node {m} (activity) edge node {n}	(user);
+  
+  \node[relationship] [node distance=8cm] (rule) [above left=5cm and 4cm of activity] {Regelung}; 
+  
+  \node[attribute] (per_week) [right =of rule] {Anzahl pro Woche} edge (rule);
+  
+  \path (rule) edge node {m} (category) edge node {n}	(schwerpunkt);
+  
 \end{tikzpicture}
 \\ \\
 \textbf{Tabellen:}\\
