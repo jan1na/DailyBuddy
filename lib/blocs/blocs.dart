@@ -6,3 +6,4 @@ export './days_bloc.dart';
 export './activities_bloc.dart';
 export './navigation_bloc.dart';
 export './messages_bloc.dart';
+export './priorities_bloc.dart';

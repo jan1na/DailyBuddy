@@ -2,7 +2,6 @@ import 'package:daily_buddy_app/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'advisor.dart';
 import 'blocs/blocs.dart';
 import 'screens/screens.dart';
 
@@ -178,6 +177,8 @@ class Page extends StatelessWidget {
               BlocProvider.of<TasksBloc>(context).add(ClearAllTasksEvent());
               BlocProvider.of<PreferencesBloc>(context)
                   .add(LoadInitialPreferencesEvent());
+              BlocProvider.of<PrioritiesBloc>(context)
+                  .add(LoadInitialPrioritiesEvent());
             },
           )
         ],

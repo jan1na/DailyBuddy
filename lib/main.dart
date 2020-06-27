@@ -46,6 +46,10 @@ Future<void> main() async {
       lazy: false,
       create: (context) => PreferencesBloc(),
     ),
+    BlocProvider<PrioritiesBloc>(
+      lazy: false,
+      create: (context) => PrioritiesBloc(),
+    ),
     BlocProvider<NavigationBloc>(
       lazy: false,
       create: (context) => NavigationBloc(
