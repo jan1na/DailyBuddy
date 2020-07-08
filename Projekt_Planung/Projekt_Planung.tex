@@ -1,0 +1,54 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{parskip}
+\usepackage{ngerman}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{pdfpages}
+\usepackage{svg}
+\usepackage{tikz} 
+\newgeometry{vmargin={25mm}, hmargin={25mm,25mm}}   % set the margins
+
+\begin{document}
+
+\section*{DailyBuddy Planung}
+
+\begin{tikzpicture}[remember picture,overlay]
+   \node[anchor=north east,inner sep=20pt] at (current page.north east)
+              {\includegraphics[scale=0.5]{dailybuddy.png}};
+\end{tikzpicture}
+
+
+
+\paragraph{Frontend}
+\begin{itemize}
+\item Ein Wiki erstellen zum Nachlesen von Informationen "uber die Schwerpunkte 
+
+(Erkl"arungen und Anleitungen)
+\item Fenster erstellen zum Feedback geben, ob es mehr oder weniger Aktivit"aten 
+sein sollen:
+
+Soll nicht immer sondern in einem bestimmen Rythmus angezeigt werden (zb. einmal pro Woche)
+\item Wochenansicht des Kalenders und M"oglichkeit Tage au\ss erhalb der aktuellen Woche ansehen zu k"onnen
+\item Eventuell Darstellen der erfolgreich absolvierten Aktivit"aten im Dashboard (zb. ein Prozentsatz der Aktivit"aten der Woche oder eine Graphik): Es soll motivierend sein.
+\end{itemize}
+
+\paragraph{Backend}
+\begin{itemize}
+\item Datenbank zu dem ER-Diagramm erstellen
+\item Inhalte der Datenbank durch Tabellen einlesen und mit Abfragen die Daten in die richtigen Tabellen einf"ugen, da die Tabellen, die die Informationen enthalten, nicht der Struktur der Tabellen der Datenbank entsprechen. 
+\item Dynamisches Erzeugen der Termine im Kalender je nach ausgw"ahlten Schwerpunkten und nach vorher festgelegten Regeln: 
+
+Dabei sollen die Aktivit"aten nicht zu Zeitpunkten vorgeschlagen werden, die durch zb Arbeitszeit blockiert sind. Jede Aktivt"at geh"ort zu einer Kategorie. Wann eine Aktivit"at vorgeschlagen wird und welche Aktivit"at es ist, h"angt von den ausgew"ahlte Schwerpunkten aus dem 2. Fragebogen, den Angaben im 1. Fragebogen, den schon vorhanden Terminen im Kalender und den Kategorien, die pro Woche erf"ullt werden m"ussen, ab.
+\item Aus dem eigenen Kalender (zb Google Kalender) sollen die Termine in den Kalender der App "ubertragen werden bzw dort auch angezeigt werden: 
+
+Es soll verhindert werden, dass Aktivit"aten f"ur einen Zeitpunkt vorgeschlagen werden, an dem es einen Termin im Kalender gibt
+\item Es soll m"oglich sein, dass der Nutzer vorgeschlagene Termine in einem eingeschr"ankten Zeitraum verschieben kann
+
+\end{itemize}
+
+
+\end{document}
